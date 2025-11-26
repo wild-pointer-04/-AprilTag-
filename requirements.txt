@@ -1,0 +1,22 @@
+opencv-python<4.10.0
+numpy<2.0.0
+pyyaml
+apriltag
+
+# ROS2 依赖（需要通过 rosdep 安装，不能通过 pip）
+# 如果使用 camera_rectifier.py 从 ROS2 CameraInfo 提取内参，需要安装：
+# - rclpy (ROS2 Python 客户端库)
+# - sensor_msgs (ROS2 传感器消息类型)
+# - cv_bridge (OpenCV 和 ROS 图像消息转换)
+#
+# 安装方法（ROS2 环境）:
+#   sudo apt install ros-<distro>-rclpy ros-<distro>-sensor-msgs ros-<distro>-cv-bridge
+# 或者使用 rosdep:
+#   rosdep install --from-paths src --ignore-src -r -y
+
+# AprilTag 依赖安装说明:
+# pip install apriltag
+# 
+# 如果遇到编译问题，可能需要先安装系统依赖:
+# Ubuntu/Debian: sudo apt install cmake build-essential
+# 或者使用预编译版本: pip install apriltag-python

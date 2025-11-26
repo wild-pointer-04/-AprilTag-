@@ -1,0 +1,936 @@
+{
+  "system_info": {
+    "tag_family": "tagStandard41h12",
+    "tag_size_mm": 0.0071,
+    "board_spacing_mm": 0.065,
+    "max_reprojection_error_px": 3.0,
+    "grid_size": "15x15"
+  },
+  "summary": {
+    "total_frames": 16,
+    "success_count": 16,
+    "failure_count": 0,
+    "rejected_by_error_count": 0,
+    "apriltag_success_count": 0,
+    "apriltag_failure_count": 16,
+    "high_error_count": 0,
+    "fixed_error_count": 0,
+    "success_rate": 1.0,
+    "apriltag_success_rate": 0.0,
+    "rejection_rate": 0.0
+  },
+  "results": [
+    {
+      "frame_id": "frame_000000",
+      "timestamp": 1764057502.2303655,
+      "success": true,
+      "apriltag_success": false,
+      "method_used": "STANDARD_NO_APRILTAG",
+      "grid": {
+        "rows_requested": 15,
+        "cols_requested": 15,
+        "rows_used": 15,
+        "cols_used": 15,
+        "symmetric": true,
+        "detection_source": "direct",
+        "points_detected": 225
+      },
+      "apriltag_info": null,
+      "board_center_px": {
+        "mean": {
+          "u": 458.2996826171875,
+          "v": 270.6125793457031
+        },
+        "mid": {
+          "u": 459.1326904296875,
+          "v": 270.85394287109375
+        }
+      },
+      "euler_angles": {
+        "roll": 3.193534908089589,
+        "pitch": 1.226200349232272,
+        "yaw": 94.36741764454734
+      },
+      "camera_tilt_angles": {
+        "roll": 3.0918966135603227,
+        "pitch": -88.53399151793568,
+        "yaw": 94.36741764454734
+      },
+      "reprojection_error": {
+        "mean": 1.3315491676330566,
+        "max": 1.3315491676330566,
+        "method": "STANDARD_NO_APRILTAG",
+        "point_count": 225
+      },
+      "tilt_detection": {
+        "has_tilt": true,
+        "roll_offset": 3.0918966135603227,
+        "pitch_offset": -88.53399151793568,
+        "yaw_offset": 94.36741764454734,
+        "threshold": 0.5
+      },
+      "robust_info": {
+        "total_solutions_tried": 1,
+        "all_errors": [
+          1.3315491676330566
+        ],
+        "consistency_check": {}
+      }
+    },
+    {
+      "frame_id": "frame_000001",
+      "timestamp": 1764057502.2634625,
+      "success": true,
+      "apriltag_success": false,
+      "method_used": "STANDARD_NO_APRILTAG",
+      "grid": {
+        "rows_requested": 15,
+        "cols_requested": 15,
+        "rows_used": 15,
+        "cols_used": 15,
+        "symmetric": true,
+        "detection_source": "direct",
+        "points_detected": 225
+      },
+      "apriltag_info": null,
+      "board_center_px": {
+        "mean": {
+          "u": 458.28582763671875,
+          "v": 270.6144104003906
+        },
+        "mid": {
+          "u": 458.98760986328125,
+          "v": 270.7667541503906
+        }
+      },
+      "euler_angles": {
+        "roll": 3.2343492012286106,
+        "pitch": 1.1804748784164474,
+        "yaw": 94.38433884106121
+      },
+      "camera_tilt_angles": {
+        "roll": 3.1356095590507493,
+        "pitch": -88.57553638423447,
+        "yaw": 94.38433884106121
+      },
+      "reprojection_error": {
+        "mean": 1.3412413597106934,
+        "max": 1.3412413597106934,
+        "method": "STANDARD_NO_APRILTAG",
+        "point_count": 225
+      },
+      "tilt_detection": {
+        "has_tilt": true,
+        "roll_offset": 3.1356095590507493,
+        "pitch_offset": -88.57553638423447,
+        "yaw_offset": 94.38433884106121,
+        "threshold": 0.5
+      },
+      "robust_info": {
+        "total_solutions_tried": 1,
+        "all_errors": [
+          1.3412413597106934
+        ],
+        "consistency_check": {}
+      }
+    },
+    {
+      "frame_id": "frame_000002",
+      "timestamp": 1764057502.2956314,
+      "success": true,
+      "apriltag_success": false,
+      "method_used": "STANDARD_NO_APRILTAG",
+      "grid": {
+        "rows_requested": 15,
+        "cols_requested": 15,
+        "rows_used": 15,
+        "cols_used": 15,
+        "symmetric": true,
+        "detection_source": "direct",
+        "points_detected": 225
+      },
+      "apriltag_info": null,
+      "board_center_px": {
+        "mean": {
+          "u": 458.19818115234375,
+          "v": 270.5564270019531
+        },
+        "mid": {
+          "u": 459.033203125,
+          "v": 270.85101318359375
+        }
+      },
+      "euler_angles": {
+        "roll": 3.2199684916072897,
+        "pitch": 1.2440290758045762,
+        "yaw": 94.39831353112612
+      },
+      "camera_tilt_angles": {
+        "roll": 3.1161323729167805,
+        "pitch": -88.51251696893257,
+        "yaw": 94.39831353112612
+      },
+      "reprojection_error": {
+        "mean": 1.3476217985153198,
+        "max": 1.3476217985153198,
+        "method": "STANDARD_NO_APRILTAG",
+        "point_count": 225
+      },
+      "tilt_detection": {
+        "has_tilt": true,
+        "roll_offset": 3.1161323729167805,
+        "pitch_offset": -88.51251696893257,
+        "yaw_offset": 94.39831353112612,
+        "threshold": 0.5
+      },
+      "robust_info": {
+        "total_solutions_tried": 1,
+        "all_errors": [
+          1.3476217985153198
+        ],
+        "consistency_check": {}
+      }
+    },
+    {
+      "frame_id": "frame_000003",
+      "timestamp": 1764057502.3294446,
+      "success": true,
+      "apriltag_success": false,
+      "method_used": "STANDARD_NO_APRILTAG",
+      "grid": {
+        "rows_requested": 15,
+        "cols_requested": 15,
+        "rows_used": 15,
+        "cols_used": 15,
+        "symmetric": true,
+        "detection_source": "direct",
+        "points_detected": 225
+      },
+      "apriltag_info": null,
+      "board_center_px": {
+        "mean": {
+          "u": 458.4139709472656,
+          "v": 270.4436950683594
+        },
+        "mid": {
+          "u": 459.1693115234375,
+          "v": 270.72601318359375
+        }
+      },
+      "euler_angles": {
+        "roll": 3.0141586602804864,
+        "pitch": 1.175672930816205,
+        "yaw": 94.37044827746354
+      },
+      "camera_tilt_angles": {
+        "roll": 2.9166765249208026,
+        "pitch": -88.59790731170098,
+        "yaw": 94.37044827746354
+      },
+      "reprojection_error": {
+        "mean": 1.2999396324157715,
+        "max": 1.2999396324157715,
+        "method": "STANDARD_NO_APRILTAG",
+        "point_count": 225
+      },
+      "tilt_detection": {
+        "has_tilt": true,
+        "roll_offset": 2.9166765249208026,
+        "pitch_offset": -88.59790731170098,
+        "yaw_offset": 94.37044827746354,
+        "threshold": 0.5
+      },
+      "robust_info": {
+        "total_solutions_tried": 1,
+        "all_errors": [
+          1.2999396324157715
+        ],
+        "consistency_check": {}
+      }
+    },
+    {
+      "frame_id": "frame_000004",
+      "timestamp": 1764057502.3618503,
+      "success": true,
+      "apriltag_success": false,
+      "method_used": "STANDARD_NO_APRILTAG",
+      "grid": {
+        "rows_requested": 15,
+        "cols_requested": 15,
+        "rows_used": 15,
+        "cols_used": 15,
+        "symmetric": true,
+        "detection_source": "direct",
+        "points_detected": 225
+      },
+      "apriltag_info": null,
+      "board_center_px": {
+        "mean": {
+          "u": 458.27044677734375,
+          "v": 270.38153076171875
+        },
+        "mid": {
+          "u": 459.1948547363281,
+          "v": 270.8387756347656
+        }
+      },
+      "euler_angles": {
+        "roll": 3.014335884588178,
+        "pitch": 1.3116304455080297,
+        "yaw": 94.39411040270215
+      },
+      "camera_tilt_angles": {
+        "roll": 2.906035369607082,
+        "pitch": -88.46114467510571,
+        "yaw": 94.39411040270215
+      },
+      "reprojection_error": {
+        "mean": 1.3114798069000244,
+        "max": 1.3114798069000244,
+        "method": "STANDARD_NO_APRILTAG",
+        "point_count": 225
+      },
+      "tilt_detection": {
+        "has_tilt": true,
+        "roll_offset": 2.906035369607082,
+        "pitch_offset": -88.46114467510571,
+        "yaw_offset": 94.39411040270215,
+        "threshold": 0.5
+      },
+      "robust_info": {
+        "total_solutions_tried": 1,
+        "all_errors": [
+          1.3114798069000244
+        ],
+        "consistency_check": {}
+      }
+    },
+    {
+      "frame_id": "frame_000005",
+      "timestamp": 1764057502.3957317,
+      "success": true,
+      "apriltag_success": false,
+      "method_used": "STANDARD_NO_APRILTAG",
+      "grid": {
+        "rows_requested": 15,
+        "cols_requested": 15,
+        "rows_used": 15,
+        "cols_used": 15,
+        "symmetric": true,
+        "detection_source": "direct",
+        "points_detected": 225
+      },
+      "apriltag_info": null,
+      "board_center_px": {
+        "mean": {
+          "u": 458.3056945800781,
+          "v": 270.680419921875
+        },
+        "mid": {
+          "u": 459.0939636230469,
+          "v": 270.9683837890625
+        }
+      },
+      "euler_angles": {
+        "roll": 2.9274972089052937,
+        "pitch": 1.3022187492167348,
+        "yaw": 94.34927589757342
+      },
+      "camera_tilt_angles": {
+        "roll": 2.821309522728569,
+        "pitch": -88.47940338238784,
+        "yaw": 94.34927589757342
+      },
+      "reprojection_error": {
+        "mean": 1.3088988065719604,
+        "max": 1.3088988065719604,
+        "method": "STANDARD_NO_APRILTAG",
+        "point_count": 225
+      },
+      "tilt_detection": {
+        "has_tilt": true,
+        "roll_offset": 2.821309522728569,
+        "pitch_offset": -88.47940338238784,
+        "yaw_offset": 94.34927589757342,
+        "threshold": 0.5
+      },
+      "robust_info": {
+        "total_solutions_tried": 1,
+        "all_errors": [
+          1.3088988065719604
+        ],
+        "consistency_check": {}
+      }
+    },
+    {
+      "frame_id": "frame_000006",
+      "timestamp": 1764057502.4293945,
+      "success": true,
+      "apriltag_success": false,
+      "method_used": "STANDARD_NO_APRILTAG",
+      "grid": {
+        "rows_requested": 15,
+        "cols_requested": 15,
+        "rows_used": 15,
+        "cols_used": 15,
+        "symmetric": true,
+        "detection_source": "direct",
+        "points_detected": 225
+      },
+      "apriltag_info": null,
+      "board_center_px": {
+        "mean": {
+          "u": 458.18927001953125,
+          "v": 270.7335510253906
+        },
+        "mid": {
+          "u": 459.2076416015625,
+          "v": 270.79644775390625
+        }
+      },
+      "euler_angles": {
+        "roll": 3.1562973764838205,
+        "pitch": 1.3235367774023814,
+        "yaw": 94.39140179560752
+      },
+      "camera_tilt_angles": {
+        "roll": 3.0468235956290357,
+        "pitch": -88.43851558337063,
+        "yaw": 94.39140179560752
+      },
+      "reprojection_error": {
+        "mean": 1.3562299013137817,
+        "max": 1.3562299013137817,
+        "method": "STANDARD_NO_APRILTAG",
+        "point_count": 225
+      },
+      "tilt_detection": {
+        "has_tilt": true,
+        "roll_offset": 3.0468235956290357,
+        "pitch_offset": -88.43851558337063,
+        "yaw_offset": 94.39140179560752,
+        "threshold": 0.5
+      },
+      "robust_info": {
+        "total_solutions_tried": 1,
+        "all_errors": [
+          1.3562299013137817
+        ],
+        "consistency_check": {}
+      }
+    },
+    {
+      "frame_id": "frame_000007",
+      "timestamp": 1764057502.4627216,
+      "success": true,
+      "apriltag_success": false,
+      "method_used": "STANDARD_NO_APRILTAG",
+      "grid": {
+        "rows_requested": 15,
+        "cols_requested": 15,
+        "rows_used": 15,
+        "cols_used": 15,
+        "symmetric": true,
+        "detection_source": "direct",
+        "points_detected": 225
+      },
+      "apriltag_info": null,
+      "board_center_px": {
+        "mean": {
+          "u": 458.20770263671875,
+          "v": 270.5258483886719
+        },
+        "mid": {
+          "u": 459.20611572265625,
+          "v": 270.88824462890625
+        }
+      },
+      "euler_angles": {
+        "roll": 3.077058943991233,
+        "pitch": 1.1519361481375938,
+        "yaw": 94.39728142298469
+      },
+      "camera_tilt_angles": {
+        "roll": 2.980550721174069,
+        "pitch": -88.61537131666401,
+        "yaw": 94.39728142298469
+      },
+      "reprojection_error": {
+        "mean": 1.3333542346954346,
+        "max": 1.3333542346954346,
+        "method": "STANDARD_NO_APRILTAG",
+        "point_count": 225
+      },
+      "tilt_detection": {
+        "has_tilt": true,
+        "roll_offset": 2.980550721174069,
+        "pitch_offset": -88.61537131666401,
+        "yaw_offset": 94.39728142298469,
+        "threshold": 0.5
+      },
+      "robust_info": {
+        "total_solutions_tried": 1,
+        "all_errors": [
+          1.3333542346954346
+        ],
+        "consistency_check": {}
+      }
+    },
+    {
+      "frame_id": "frame_000008",
+      "timestamp": 1764057502.4957106,
+      "success": true,
+      "apriltag_success": false,
+      "method_used": "STANDARD_NO_APRILTAG",
+      "grid": {
+        "rows_requested": 15,
+        "cols_requested": 15,
+        "rows_used": 15,
+        "cols_used": 15,
+        "symmetric": true,
+        "detection_source": "direct",
+        "points_detected": 225
+      },
+      "apriltag_info": null,
+      "board_center_px": {
+        "mean": {
+          "u": 458.4226989746094,
+          "v": 270.4931335449219
+        },
+        "mid": {
+          "u": 459.1826171875,
+          "v": 270.7652893066406
+        }
+      },
+      "euler_angles": {
+        "roll": 2.923495037360823,
+        "pitch": 1.3863429824086495,
+        "yaw": 94.39081082154053
+      },
+      "camera_tilt_angles": {
+        "roll": 2.8098884759076554,
+        "pitch": -88.39379671228038,
+        "yaw": 94.39081082154053
+      },
+      "reprojection_error": {
+        "mean": 1.2814042568206787,
+        "max": 1.2814042568206787,
+        "method": "STANDARD_NO_APRILTAG",
+        "point_count": 225
+      },
+      "tilt_detection": {
+        "has_tilt": true,
+        "roll_offset": 2.8098884759076554,
+        "pitch_offset": -88.39379671228038,
+        "yaw_offset": 94.39081082154053,
+        "threshold": 0.5
+      },
+      "robust_info": {
+        "total_solutions_tried": 1,
+        "all_errors": [
+          1.2814042568206787
+        ],
+        "consistency_check": {}
+      }
+    },
+    {
+      "frame_id": "frame_000009",
+      "timestamp": 1764057502.529741,
+      "success": true,
+      "apriltag_success": false,
+      "method_used": "STANDARD_NO_APRILTAG",
+      "grid": {
+        "rows_requested": 15,
+        "cols_requested": 15,
+        "rows_used": 15,
+        "cols_used": 15,
+        "symmetric": true,
+        "detection_source": "direct",
+        "points_detected": 225
+      },
+      "apriltag_info": null,
+      "board_center_px": {
+        "mean": {
+          "u": 458.37939453125,
+          "v": 270.5926818847656
+        },
+        "mid": {
+          "u": 459.192626953125,
+          "v": 270.958740234375
+        }
+      },
+      "euler_angles": {
+        "roll": 3.0334971984242145,
+        "pitch": 1.3377090983377116,
+        "yaw": 94.38092631140455
+      },
+      "camera_tilt_angles": {
+        "roll": 2.923546480457162,
+        "pitch": -88.43434671456868,
+        "yaw": 94.38092631140455
+      },
+      "reprojection_error": {
+        "mean": 1.2991390228271484,
+        "max": 1.2991390228271484,
+        "method": "STANDARD_NO_APRILTAG",
+        "point_count": 225
+      },
+      "tilt_detection": {
+        "has_tilt": true,
+        "roll_offset": 2.923546480457162,
+        "pitch_offset": -88.43434671456868,
+        "yaw_offset": 94.38092631140455,
+        "threshold": 0.5
+      },
+      "robust_info": {
+        "total_solutions_tried": 1,
+        "all_errors": [
+          1.2991390228271484
+        ],
+        "consistency_check": {}
+      }
+    },
+    {
+      "frame_id": "frame_000010",
+      "timestamp": 1764057502.5627825,
+      "success": true,
+      "apriltag_success": false,
+      "method_used": "STANDARD_NO_APRILTAG",
+      "grid": {
+        "rows_requested": 15,
+        "cols_requested": 15,
+        "rows_used": 15,
+        "cols_used": 15,
+        "symmetric": true,
+        "detection_source": "direct",
+        "points_detected": 225
+      },
+      "apriltag_info": null,
+      "board_center_px": {
+        "mean": {
+          "u": 458.3271789550781,
+          "v": 270.76007080078125
+        },
+        "mid": {
+          "u": 459.1726379394531,
+          "v": 271.08233642578125
+        }
+      },
+      "euler_angles": {
+        "roll": 3.063669116709576,
+        "pitch": 1.2671654198125566,
+        "yaw": 94.3906775780315
+      },
+      "camera_tilt_angles": {
+        "roll": 2.9586818681429747,
+        "pitch": -88.50186298703865,
+        "yaw": 94.3906775780315
+      },
+      "reprojection_error": {
+        "mean": 1.312602162361145,
+        "max": 1.312602162361145,
+        "method": "STANDARD_NO_APRILTAG",
+        "point_count": 225
+      },
+      "tilt_detection": {
+        "has_tilt": true,
+        "roll_offset": 2.9586818681429747,
+        "pitch_offset": -88.50186298703865,
+        "yaw_offset": 94.3906775780315,
+        "threshold": 0.5
+      },
+      "robust_info": {
+        "total_solutions_tried": 1,
+        "all_errors": [
+          1.312602162361145
+        ],
+        "consistency_check": {}
+      }
+    },
+    {
+      "frame_id": "frame_000011",
+      "timestamp": 1764057502.5957396,
+      "success": true,
+      "apriltag_success": false,
+      "method_used": "STANDARD_NO_APRILTAG",
+      "grid": {
+        "rows_requested": 15,
+        "cols_requested": 15,
+        "rows_used": 15,
+        "cols_used": 15,
+        "symmetric": true,
+        "detection_source": "direct",
+        "points_detected": 225
+      },
+      "apriltag_info": null,
+      "board_center_px": {
+        "mean": {
+          "u": 458.3599853515625,
+          "v": 270.7633972167969
+        },
+        "mid": {
+          "u": 459.041015625,
+          "v": 271.0658264160156
+        }
+      },
+      "euler_angles": {
+        "roll": 3.1197173640236144,
+        "pitch": 1.1897874469931367,
+        "yaw": 94.39357465159264
+      },
+      "camera_tilt_angles": {
+        "roll": 3.0203384630144114,
+        "pitch": -88.57455163548889,
+        "yaw": 94.39357465159264
+      },
+      "reprojection_error": {
+        "mean": 1.3000179529190063,
+        "max": 1.3000179529190063,
+        "method": "STANDARD_NO_APRILTAG",
+        "point_count": 225
+      },
+      "tilt_detection": {
+        "has_tilt": true,
+        "roll_offset": 3.0203384630144114,
+        "pitch_offset": -88.57455163548889,
+        "yaw_offset": 94.39357465159264,
+        "threshold": 0.5
+      },
+      "robust_info": {
+        "total_solutions_tried": 1,
+        "all_errors": [
+          1.3000179529190063
+        ],
+        "consistency_check": {}
+      }
+    },
+    {
+      "frame_id": "frame_000012",
+      "timestamp": 1764057502.6298964,
+      "success": true,
+      "apriltag_success": false,
+      "method_used": "STANDARD_NO_APRILTAG",
+      "grid": {
+        "rows_requested": 15,
+        "cols_requested": 15,
+        "rows_used": 15,
+        "cols_used": 15,
+        "symmetric": true,
+        "detection_source": "direct",
+        "points_detected": 225
+      },
+      "apriltag_info": null,
+      "board_center_px": {
+        "mean": {
+          "u": 458.2508239746094,
+          "v": 270.57720947265625
+        },
+        "mid": {
+          "u": 459.19854736328125,
+          "v": 270.79974365234375
+        }
+      },
+      "euler_angles": {
+        "roll": 3.0647949414821767,
+        "pitch": 1.3516790144846311,
+        "yaw": 94.40058249828974
+      },
+      "camera_tilt_angles": {
+        "roll": 2.9531785550122436,
+        "pitch": -88.41700938935769,
+        "yaw": 94.40058249828974
+      },
+      "reprojection_error": {
+        "mean": 1.3346368074417114,
+        "max": 1.3346368074417114,
+        "method": "STANDARD_NO_APRILTAG",
+        "point_count": 225
+      },
+      "tilt_detection": {
+        "has_tilt": true,
+        "roll_offset": 2.9531785550122436,
+        "pitch_offset": -88.41700938935769,
+        "yaw_offset": 94.40058249828974,
+        "threshold": 0.5
+      },
+      "robust_info": {
+        "total_solutions_tried": 1,
+        "all_errors": [
+          1.3346368074417114
+        ],
+        "consistency_check": {}
+      }
+    },
+    {
+      "frame_id": "frame_000013",
+      "timestamp": 1764057502.662582,
+      "success": true,
+      "apriltag_success": false,
+      "method_used": "STANDARD_NO_APRILTAG",
+      "grid": {
+        "rows_requested": 15,
+        "cols_requested": 15,
+        "rows_used": 15,
+        "cols_used": 15,
+        "symmetric": true,
+        "detection_source": "direct",
+        "points_detected": 225
+      },
+      "apriltag_info": null,
+      "board_center_px": {
+        "mean": {
+          "u": 458.37005615234375,
+          "v": 270.5989685058594
+        },
+        "mid": {
+          "u": 459.2682800292969,
+          "v": 270.7783508300781
+        }
+      },
+      "euler_angles": {
+        "roll": 2.9785954059007906,
+        "pitch": 1.2246610326983216,
+        "yaw": 94.38800995643851
+      },
+      "camera_tilt_angles": {
+        "roll": 2.8770877831249777,
+        "pitch": -88.55090068532708,
+        "yaw": 94.38800995643851
+      },
+      "reprojection_error": {
+        "mean": 1.2970958948135376,
+        "max": 1.2970958948135376,
+        "method": "STANDARD_NO_APRILTAG",
+        "point_count": 225
+      },
+      "tilt_detection": {
+        "has_tilt": true,
+        "roll_offset": 2.8770877831249777,
+        "pitch_offset": -88.55090068532708,
+        "yaw_offset": 94.38800995643851,
+        "threshold": 0.5
+      },
+      "robust_info": {
+        "total_solutions_tried": 1,
+        "all_errors": [
+          1.2970958948135376
+        ],
+        "consistency_check": {}
+      }
+    },
+    {
+      "frame_id": "frame_000014",
+      "timestamp": 1764057502.6962376,
+      "success": true,
+      "apriltag_success": false,
+      "method_used": "STANDARD_NO_APRILTAG",
+      "grid": {
+        "rows_requested": 15,
+        "cols_requested": 15,
+        "rows_used": 15,
+        "cols_used": 15,
+        "symmetric": true,
+        "detection_source": "direct",
+        "points_detected": 225
+      },
+      "apriltag_info": null,
+      "board_center_px": {
+        "mean": {
+          "u": 458.3027038574219,
+          "v": 270.7275085449219
+        },
+        "mid": {
+          "u": 459.0206604003906,
+          "v": 271.0039367675781
+        }
+      },
+      "euler_angles": {
+        "roll": 2.9268329501067,
+        "pitch": 1.28697534685395,
+        "yaw": 94.40691598058635
+      },
+      "camera_tilt_angles": {
+        "roll": 2.820270651530734,
+        "pitch": -88.49181355758617,
+        "yaw": 94.40691598058635
+      },
+      "reprojection_error": {
+        "mean": 1.3044253587722778,
+        "max": 1.3044253587722778,
+        "method": "STANDARD_NO_APRILTAG",
+        "point_count": 225
+      },
+      "tilt_detection": {
+        "has_tilt": true,
+        "roll_offset": 2.820270651530734,
+        "pitch_offset": -88.49181355758617,
+        "yaw_offset": 94.40691598058635,
+        "threshold": 0.5
+      },
+      "robust_info": {
+        "total_solutions_tried": 1,
+        "all_errors": [
+          1.3044253587722778
+        ],
+        "consistency_check": {}
+      }
+    },
+    {
+      "frame_id": "frame_000015",
+      "timestamp": 1764057502.7297306,
+      "success": true,
+      "apriltag_success": false,
+      "method_used": "STANDARD_NO_APRILTAG",
+      "grid": {
+        "rows_requested": 15,
+        "cols_requested": 15,
+        "rows_used": 15,
+        "cols_used": 15,
+        "symmetric": true,
+        "detection_source": "direct",
+        "points_detected": 225
+      },
+      "apriltag_info": null,
+      "board_center_px": {
+        "mean": {
+          "u": 458.37786865234375,
+          "v": 270.7230529785156
+        },
+        "mid": {
+          "u": 459.1262512207031,
+          "v": 271.07183837890625
+        }
+      },
+      "euler_angles": {
+        "roll": 2.9654369151620585,
+        "pitch": 1.17428275894207,
+        "yaw": 94.4000973575321
+      },
+      "camera_tilt_angles": {
+        "roll": 2.867460361588684,
+        "pitch": -88.6015304496764,
+        "yaw": 94.4000973575321
+      },
+      "reprojection_error": {
+        "mean": 1.2960331439971924,
+        "max": 1.2960331439971924,
+        "method": "STANDARD_NO_APRILTAG",
+        "point_count": 225
+      },
+      "tilt_detection": {
+        "has_tilt": true,
+        "roll_offset": 2.867460361588684,
+        "pitch_offset": -88.6015304496764,
+        "yaw_offset": 94.4000973575321,
+        "threshold": 0.5
+      },
+      "robust_info": {
+        "total_solutions_tried": 1,
+        "all_errors": [
+          1.2960331439971924
+        ],
+        "consistency_check": {}
+      }
+    }
+  ]
+}
