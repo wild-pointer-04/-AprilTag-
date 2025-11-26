@@ -3745,13 +3745,13 @@
         }
       },
       "euler_angles": {
-        "roll": 3.2199684916072897,
+        "roll": 3.219968491607318,
         "pitch": 1.2440290758045762,
         "yaw": 94.39831353112612
       },
       "camera_tilt_angles": {
-        "roll": 3.1161323729167805,
-        "pitch": -88.51251696893257,
+        "roll": 3.116132372916809,
+        "pitch": -88.51251696893256,
         "yaw": 94.39831353112612
       },
       "reprojection_error": {
@@ -3762,8 +3762,8 @@
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 3.1161323729167805,
-        "pitch_offset": -88.51251696893257,
+        "roll_offset": 3.116132372916809,
+        "pitch_offset": -88.51251696893256,
         "yaw_offset": 94.39831353112612,
         "threshold": 0.5
       },
@@ -3776,8 +3776,8 @@
           1.3466943502426147
         ],
         "consistency_check": {
-          "angle_difference_deg": 173.9567545034973,
-          "translation_difference_mm": 3.6611019443598662,
+          "angle_difference_deg": 173.9567545034974,
+          "translation_difference_mm": 3.661101944359866,
           "is_consistent": false
         }
       }
@@ -7539,7 +7539,7 @@
         ],
         "consistency_check": {
           "angle_difference_deg": 174.63166498222503,
-          "translation_difference_mm": 3.670671432698868,
+          "translation_difference_mm": 3.670671432698867,
           "is_consistent": false
         }
       }
@@ -11301,7 +11301,7 @@
         ],
         "consistency_check": {
           "angle_difference_deg": 175.8762226014491,
-          "translation_difference_mm": 3.6756078512907044,
+          "translation_difference_mm": 3.675607851290705,
           "is_consistent": false
         }
       }
@@ -12524,13 +12524,13 @@
       },
       "euler_angles": {
         "roll": 3.0334971984242145,
-        "pitch": 1.3377090983376263,
-        "yaw": 94.38092631140461
+        "pitch": 1.3377090983377116,
+        "yaw": 94.38092631140455
       },
       "camera_tilt_angles": {
-        "roll": 2.9235464804571336,
-        "pitch": -88.43434671456876,
-        "yaw": 94.38092631140461
+        "roll": 2.923546480457162,
+        "pitch": -88.43434671456868,
+        "yaw": 94.38092631140455
       },
       "reprojection_error": {
         "mean": 1.2991390228271484,
@@ -12540,9 +12540,9 @@
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 2.9235464804571336,
-        "pitch_offset": -88.43434671456876,
-        "yaw_offset": 94.38092631140461,
+        "roll_offset": 2.923546480457162,
+        "pitch_offset": -88.43434671456868,
+        "yaw_offset": 94.38092631140455,
         "threshold": 0.5
       },
       "robust_info": {
@@ -15031,7 +15031,7 @@
         }
       },
       "euler_angles": {
-        "roll": 3.119717364023586,
+        "roll": 3.1197173640236144,
         "pitch": 1.1897874469931367,
         "yaw": 94.39357465159264
       },
@@ -15062,7 +15062,7 @@
           2.301720380783081
         ],
         "consistency_check": {
-          "angle_difference_deg": 174.921142259354,
+          "angle_difference_deg": 174.92114225935393,
           "translation_difference_mm": 3.6632278009438717,
           "is_consistent": false
         }
@@ -16286,7 +16286,7 @@
       },
       "euler_angles": {
         "roll": 3.0647949414821483,
-        "pitch": 1.3516790144846595,
+        "pitch": 1.3516790144846311,
         "yaw": 94.40058249828974
       },
       "camera_tilt_angles": {
@@ -18793,13 +18793,13 @@
         }
       },
       "euler_angles": {
-        "roll": 2.9268329501067,
-        "pitch": 1.28697534685395,
+        "roll": 2.9268329501067853,
+        "pitch": 1.2869753468541205,
         "yaw": 94.40691598058635
       },
       "camera_tilt_angles": {
-        "roll": 2.820270651530734,
-        "pitch": -88.4918135575862,
+        "roll": 2.820270651530791,
+        "pitch": -88.49181355758603,
         "yaw": 94.40691598058635
       },
       "reprojection_error": {
@@ -18810,8 +18810,8 @@
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 2.820270651530734,
-        "pitch_offset": -88.4918135575862,
+        "roll_offset": 2.820270651530791,
+        "pitch_offset": -88.49181355758603,
         "yaw_offset": 94.40691598058635,
         "threshold": 0.5
       },
@@ -18825,7 +18825,7 @@
         ],
         "consistency_check": {
           "angle_difference_deg": 174.34415882479706,
-          "translation_difference_mm": 3.672519474793404,
+          "translation_difference_mm": 3.6725194747934036,
           "is_consistent": false
         }
       }
