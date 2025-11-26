@@ -1,0 +1,62 @@
+相机拍照服务程序包
+===================
+
+这是完整的相机拍照服务程序包，已打包为：camera_capture_package.tar.gz (3.6MB)
+
+📦 包内容：
+- 核心拍照服务程序
+- 快速启动脚本
+- 测试脚本
+- ROS2 启动文件
+- 完整使用文档
+- 3张示例拍照图片
+
+🚀 快速使用（三步）：
+
+1. 解压文件
+   tar -xzf camera_capture_package.tar.gz
+   cd camera_capture_package
+
+2. 启动相机（需要先启动 Orbbec 相机）
+   source ~/ros2_ws/install/setup.bash
+   ros2 launch orbbec_camera gemini_330_series.launch.py
+
+3. 启动拍照服务（推荐使用快速启动脚本）
+   ./start_camera_capture_service.sh
+   
+   然后选择选项 1
+
+4. 测试拍照
+   python3 test_camera_capture_service.py --single
+
+   或使用 ROS2 命令：
+   ros2 service call /camera_capture std_srvs/srv/Trigger
+
+📸 拍照结果：
+拍摄的图像会自动保存在 captured_images/ 目录
+文件名格式：capture_0001_20231121_143025_123.png
+
+🤖 与机械臂集成：
+机械臂到达指定位置后，调用服务：
+ros2 service call /camera_capture std_srvs/srv/Trigger
+
+服务会返回：
+success: True
+message: '已拍好第1张照片'
+
+📚 详细文档：
+- 快速使用指南.md （推荐先看这个）
+- README_CAMERA_CAPTURE_SERVICE.md
+- docs/camera_capture_service_usage.md
+
+✅ 特点：
+- 标准 ROS2 服务接口，易于集成
+- 自动保存图像，带时间戳
+- 提供完整的测试脚本
+- 支持自定义配置
+- 可直接使用，无需额外配置
+
+如有任何问题，请随时联系。
+
+---
+打包日期：2024年11月26日
