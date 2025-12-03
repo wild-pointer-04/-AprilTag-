@@ -368,72 +368,90 @@ class RobustTiltCheckerNode(Node):
                 grid_rows, grid_cols, self.board_spacing, coord_info, grid_symmetric
             )
             
+            pts2d = ordered_corners.reshape(-1, 2)
+            
             # 获取AprilTag位姿（如果可用）
             if coord_info is not None:
                 apriltag_rvec = coord_info['tag_rvec']
                 apriltag_tvec = coord_info['tag_tvec']
                 
                 # 使用鲁棒PnP求解器
-                rvec_robust, tvec_robust, robust_error, pnp_info = self.robust_system.pnp_resolver.solve_robust_pnp_with_apriltag_constraint(
-                    objpoints_3d,
-                    ordered_corners.reshape(-1, 2),
-                    K_used,
-                    dist_used,
-                    apriltag_rvec,
-                    apriltag_tvec
-                )
+                # ✅ 图像已去畸变，这里不再传入畸变系数
+                rvec_robust, tvec_robust, robust_error_tmp, pnp_info = \
+                    self.robust_system.pnp_resolver.solve_robust_pnp_with_apriltag_constraint(
+                        objpoints_3d,
+                        pts2d,
+                        K_used,
+                        None,  # ✅ 改为 None
+                        apriltag_rvec,
+                        apriltag_tvec
+                    )
                 
                 if rvec_robust is None:
                     self.get_logger().warn(f'[{frame_id}] 鲁棒PnP求解失败，回退到标准方法')
-                    # 回退到标准PnP
+                    # 回退到标准PnP（同样使用零畸变）
                     success_pnp, rvec_robust, tvec_robust = cv2.solvePnP(
-                        objpoints_3d, ordered_corners.reshape(-1, 2), K_used, dist_used
+                        objpoints_3d, pts2d, K_used, None
                     )
                     if not success_pnp:
                         self.failure_count += 1
                         return None
                     
-                    # 计算重投影误差
+                    # 计算重投影误差（零畸变）
                     projected_points, _ = cv2.projectPoints(
-                        objpoints_3d, rvec_robust, tvec_robust, K_used, dist_used
+                        objpoints_3d, rvec_robust, tvec_robust, K_used, None
                     )
                     errors = np.linalg.norm(
-                        projected_points.reshape(-1, 2) - ordered_corners.reshape(-1, 2),
+                        projected_points.reshape(-1, 2) - pts2d,
                         axis=1
                     )
-                    robust_error = np.mean(errors)
+                    robust_error_mean = float(np.mean(errors))
+                    robust_error_max = float(np.max(errors))
                     pnp_info = {'method': 'STANDARD_FALLBACK'}
+                else:
+                    # 鲁棒PnP成功，同样用零畸变重新精确计算误差
+                    projected_points, _ = cv2.projectPoints(
+                        objpoints_3d, rvec_robust, tvec_robust, K_used, None
+                    )
+                    errors = np.linalg.norm(
+                        projected_points.reshape(-1, 2) - pts2d,
+                        axis=1
+                    )
+                    robust_error_mean = float(np.mean(errors))
+                    robust_error_max = float(np.max(errors))
                 
                 pnp_method = pnp_info.get('method', 'Unknown')
-                
+            
             else:
-                # 没有AprilTag约束，使用标准PnP
+                # 没有AprilTag约束，使用标准PnP（零畸变）
                 success_pnp, rvec_robust, tvec_robust = cv2.solvePnP(
-                    objpoints_3d, ordered_corners.reshape(-1, 2), K_used, dist_used
+                    objpoints_3d, pts2d, K_used, None
                 )
                 if not success_pnp:
                     self.failure_count += 1
                     return None
                 
-                # 计算重投影误差
+                # 计算重投影误差（零畸变）
                 projected_points, _ = cv2.projectPoints(
-                    objpoints_3d, rvec_robust, tvec_robust, K_used, dist_used
+                    objpoints_3d, rvec_robust, tvec_robust, K_used, None
                 )
                    
                 errors = np.linalg.norm(
-                    projected_points.reshape(-1, 2) - ordered_corners.reshape(-1, 2),
+                    projected_points.reshape(-1, 2) - pts2d,
                     axis=1
                 )
-                robust_error = np.mean(errors)
+                robust_error_mean = float(np.mean(errors))
+                robust_error_max = float(np.max(errors))
                 pnp_method = 'STANDARD_NO_APRILTAG'
                 pnp_info = {'method': pnp_method}
             
-            # 检查重投影误差并淘汰超过阈值的帧
-            if robust_error > self.max_reprojection_error:
+            # 检查重投影误差并淘汰超过阈值的帧（使用 mean 和 max 进行日志输出）
+            if robust_error_mean > self.max_reprojection_error:
                 self.rejected_by_error_count += 1
                 self.failure_count += 1
                 self.get_logger().error(
-                    f'[{frame_id}] ❌ 重投影误差 {robust_error:.3f}px 超过阈值 {self.max_reprojection_error}px，淘汰该帧'
+                    f'[{frame_id}] ❌ 重投影误差 {robust_error_mean:.3f}px '
+                    f'(最大: {robust_error_max:.3f}px) 超过阈值 {self.max_reprojection_error}px，淘汰该帧'
                 )
                 self.get_logger().info(
                     f'[{frame_id}] 📊 统计: 成功={self.success_count}, 失败={self.failure_count}, '
@@ -442,11 +460,17 @@ class RobustTiltCheckerNode(Node):
                 return None
             
             # 记录高误差但未超过阈值的情况
-            if robust_error > 50:
+            if robust_error_mean > 50:
                 self.high_error_count += 1
-                self.get_logger().warn(f'[{frame_id}] ⚠️ 重投影误差较高: {robust_error:.3f}px (但未超过阈值)')
+                self.get_logger().warn(
+                    f'[{frame_id}] ⚠️ 重投影误差较高: 平均={robust_error_mean:.3f}px, '
+                    f'最大={robust_error_max:.3f}px (但未超过阈值)'
+                )
             else:
-                self.get_logger().info(f'[{frame_id}] ✅ 重投影误差正常: {robust_error:.3f}px')
+                self.get_logger().info(
+                    f'[{frame_id}] ✅ 重投影误差正常: 平均={robust_error_mean:.3f}px, '
+                    f'最大={robust_error_max:.3f}px'
+                )
             
             self.get_logger().info(f'[{frame_id}] 使用方法: {pnp_method}')
             
@@ -491,7 +515,8 @@ class RobustTiltCheckerNode(Node):
             roll_tilt = pitch_tilt = yaw_tilt = 0.0
         
         # 6. 计算板子中心
-        pts2d = ordered_corners.reshape(-1, 2)
+        # 6. 计算板子中心
+        # 注意：pts2d 在PnP阶段已经构建，这里复用
         center_mean = pts2d.mean(axis=0)
         center_idx = (grid_rows // 2) * grid_cols + (grid_cols // 2)
         center_mid = pts2d[min(center_idx, pts2d.shape[0]-1)]
@@ -532,8 +557,8 @@ class RobustTiltCheckerNode(Node):
                 'yaw': float(yaw)
             },
             'reprojection_error': {
-                'mean': float(robust_error),
-                'max': float(robust_error),  # 使用平均误差作为最大误差的近似
+                'mean': float(robust_error_mean),
+                'max': float(robust_error_max),
                 'method': pnp_method,
                 'point_count': len(pts2d)
             },
@@ -546,7 +571,7 @@ class RobustTiltCheckerNode(Node):
             },
             'robust_info': {
                 'total_solutions_tried': pnp_info.get('total_solutions', 1),
-                'all_errors': pnp_info.get('all_errors', [robust_error]),
+                'all_errors': pnp_info.get('all_errors', [robust_error_mean]),
                 'consistency_check': pnp_info.get('apriltag_consistency', {})
             }
         }
@@ -617,7 +642,7 @@ class RobustTiltCheckerNode(Node):
                     frame_id=frame_id,
                     apriltag_success=coord_info is not None,
                     apriltag_id=coord_info.get('tag_id', 'N/A') if coord_info else 'N/A',
-                    reprojection_error=robust_error,
+                    reprojection_error=robust_error_mean,
                     roll=roll,
                     pitch=pitch,
                     yaw=yaw,
@@ -632,7 +657,7 @@ class RobustTiltCheckerNode(Node):
         # 11. 日志输出总结（与tilt_checker_with_apriltag.py相同的格式）
         status = "✅ 正常" if not has_tilt else "⚠️ 存在歪斜"
         apriltag_status = "✅ AprilTag" if coord_info else "❌ AprilTag"
-        error_status = "✅ 低误差" if robust_error <= self.max_reprojection_error else "⚠️ 高误差"
+        error_status = "✅ 低误差" if robust_error_mean <= self.max_reprojection_error else "⚠️ 高误差"
         
         # 中心点说明：
         # - 均值中心：所有检测到的角点的平均值（算术平均）
@@ -642,7 +667,7 @@ class RobustTiltCheckerNode(Node):
         
         self.get_logger().info(
             f'[{frame_id}] {status} | {center_mean_str} | {center_mid_str} | '
-            f'平均重投影误差: {robust_error:.3f}px'
+            f'平均重投影误差: {robust_error_mean:.3f}px'
         )
         self.get_logger().info('   相机倾斜角（假设板子水平，相机相对于水平面）：')
         self.get_logger().info(f'      Roll(前后仰,绕X轴): {roll:+.2f}°')
@@ -760,19 +785,19 @@ class RobustTiltCheckerNode(Node):
         y_dir = y_dir / np.linalg.norm(y_dir)
         
         # 计算坐标轴端点
-        x_end_arr = (origin_2d + x_dir * axis_len).astype(np.int32)
-        y_end_arr = (origin_2d + y_dir * axis_len).astype(np.int32)
+        x_end_arr = origin_2d + x_dir * axis_len
+        y_end_arr = origin_2d + y_dir * axis_len
         
         # Z轴：垂直于X轴
         z_dir = np.array([-x_dir[1], x_dir[0]], dtype=np.float64)
         z_dir = z_dir / np.linalg.norm(z_dir)
-        z_end_arr = (origin_2d + z_dir * axis_len).astype(np.int32)
+        z_end_arr = origin_2d + z_dir * axis_len
         
-        # 转换为Python元组（使用tolist()确保是Python原生类型）
-        origin = tuple(origin_2d.astype(np.int32).tolist())
-        x_end = tuple(x_end_arr.tolist())
-        y_end = tuple(y_end_arr.tolist())
-        z_end = tuple(z_end_arr.tolist())
+        # 简化为直接 astype(int)
+        origin = tuple(origin_2d.astype(int))
+        x_end = tuple(x_end_arr.astype(int))
+        y_end = tuple(y_end_arr.astype(int))
+        z_end = tuple(z_end_arr.astype(int))
         
         # 绘制坐标轴
         cv2.arrowedLine(img, origin, x_end, (0, 0, 255), 3)    # X轴 - 红色
@@ -956,6 +981,56 @@ class RobustTiltCheckerNode(Node):
                 
         except Exception as e:
             self.get_logger().error(f'处理图像消息失败: {e}')
+    
+    def process_image_directory(self, image_dir: str, recursive: bool = True):
+        """从图像目录批量处理帧"""
+        image_path = Path(image_dir)
+        if not image_path.exists():
+            self.get_logger().error(f'图像目录不存在: {image_path}')
+            return
+        
+        search_iter = image_path.rglob('*') if recursive else image_path.glob('*')
+        valid_ext = {'.png', '.jpg', '.jpeg', '.bmp', '.tif', '.tiff'}
+        image_files = sorted([p for p in search_iter if p.is_file() and p.suffix.lower() in valid_ext])
+        
+        if not image_files:
+            self.get_logger().error(f'在目录 {image_path} 中未找到任何图像文件 (支持: {sorted(valid_ext)})')
+            return
+        
+        skip_frames = getattr(self, 'skip_frames', 1)
+        max_frames = getattr(self, 'max_frames', None)
+        
+        self.get_logger().info(f'🚀 开始处理图像目录: {image_path} (共 {len(image_files)} 张)')
+        processed = 0
+        
+        for idx, img_path in enumerate(image_files):
+            if idx % skip_frames != 0:
+                continue
+            if max_frames is not None and processed >= max_frames:
+                self.get_logger().info(f'已达到最大处理帧数 ({max_frames})，停止处理')
+                break
+            
+            img = cv2.imread(str(img_path), cv2.IMREAD_COLOR)
+            if img is None:
+                self.get_logger().warn(f'无法读取图像: {img_path}')
+                continue
+            
+            frame_id = img_path.stem
+            timestamp = img_path.stat().st_mtime
+            
+            try:
+                self.process_frame(img, frame_id, timestamp)
+                processed += 1
+                if processed % 5 == 0:
+                    self.get_logger().info(
+                        f'📊 已处理 {processed} 张图像，成功率: '
+                        f'{(self.success_count / max(processed, 1)) * 100:.1f}%'
+                    )
+            except Exception as exc:
+                self.get_logger().warn(f'处理图像 {img_path} 失败: {exc}')
+                continue
+        
+        self.get_logger().info(f'✅ 图像目录处理完成，共处理 {processed} 张图像')
     
     def process_rosbag(self, bag_path: str):
         """从 rosbag 处理所有帧"""
@@ -1246,6 +1321,8 @@ def main(args=None):
                        help='最大允许重投影误差（px，默认1.0）')
     parser.add_argument('--rosbag', type=str, default=None,
                        help='rosbag 文件路径')
+    parser.add_argument('--image-dir', type=str, default=None,
+                       help='图像目录（提供时将批量读取该目录的图片）')
     parser.add_argument('--output-dir', type=str, default='outputs/robust_apriltag_results',
                        help='输出目录')
     parser.add_argument('--save-images', action='store_true',
@@ -1286,16 +1363,22 @@ def main(args=None):
     
     try:
         if cli_args.rosbag:
+            node.get_logger().info('检测到 --rosbag 参数，切换为 rosbag 批处理模式')
             node.process_rosbag(cli_args.rosbag)
             node.save_results_to_files()
+        elif cli_args.image_dir:
+            node.get_logger().info('检测到 --image-dir 参数，切换为图像目录批处理模式')
+            node.process_image_directory(cli_args.image_dir)
+            node.save_results_to_files()
         else:
+            node.get_logger().info('未指定 rosbag 或 image-dir，进入实时 ROS 订阅模式')
             node.create_subscription(
                 Image,
                 cli_args.image_topic,
                 node.image_callback,
                 10
             )
-            node.get_logger().info('🎯 等待图像消息...')
+            node.get_logger().info('等待图像消息...')
             rclpy.spin(node)
             
     except KeyboardInterrupt:

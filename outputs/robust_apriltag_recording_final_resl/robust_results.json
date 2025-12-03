@@ -3,7 +3,7 @@
     "tag_family": "tagStandard41h12",
     "tag_size_mm": 0.0071,
     "board_spacing_mm": 0.065,
-    "max_reprojection_error_px": 3.0,
+    "max_reprojection_error_px": 15.0,
     "grid_size": "15x15"
   },
   "summary": {
@@ -1237,39 +1237,39 @@
         }
       },
       "euler_angles": {
-        "roll": 3.1935349080895605,
-        "pitch": 1.2262003492322435,
-        "yaw": 94.36741764454734
+        "roll": 3.268307313303467,
+        "pitch": 1.321822304733331,
+        "yaw": 94.36133106585231
       },
       "camera_tilt_angles": {
-        "roll": 3.0918966135602943,
-        "pitch": -88.5339915179357,
-        "yaw": 94.36741764454734
+        "roll": 3.1595071908181183,
+        "pitch": -88.43328384128105,
+        "yaw": 94.36133106585231
       },
       "reprojection_error": {
-        "mean": 1.3315491676330566,
-        "max": 1.3315491676330566,
+        "mean": 1.325961947441101,
+        "max": 4.371671676635742,
         "method": "ITERATIVE",
         "point_count": 225
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 3.0918966135602943,
-        "pitch_offset": -88.5339915179357,
-        "yaw_offset": 94.36741764454734,
+        "roll_offset": 3.1595071908181183,
+        "pitch_offset": -88.43328384128105,
+        "yaw_offset": 94.36133106585231,
         "threshold": 0.5
       },
       "robust_info": {
         "total_solutions_tried": 4,
         "all_errors": [
-          1.3315489292144775,
-          1.3315491676330566,
-          44.22690963745117,
-          1.3304749727249146
+          1.3259620666503906,
+          1.325961947441101,
+          44.296207427978516,
+          1.325961947441101
         ],
         "consistency_check": {
-          "angle_difference_deg": 173.1071160318389,
-          "translation_difference_mm": 3.6573995412957876,
+          "angle_difference_deg": 173.12483861033164,
+          "translation_difference_mm": 3.656760516248923,
           "is_consistent": false
         }
       }
@@ -1279,7 +1279,7 @@
       "timestamp": 1764057502.2634625,
       "success": true,
       "apriltag_success": true,
-      "method_used": "CORRECTED_APRILTAG",
+      "method_used": "APRILTAG_GUESS",
       "grid": {
         "rows_requested": 15,
         "cols_requested": 15,
@@ -2491,39 +2491,39 @@
         }
       },
       "euler_angles": {
-        "roll": 3.1836399097254287,
-        "pitch": 0.9047510146153002,
-        "yaw": 94.3206897978813
+        "roll": 3.308838458888488,
+        "pitch": 1.2759812325574842,
+        "yaw": 94.37825179251001
       },
       "camera_tilt_angles": {
-        "roll": 3.1070416885847294,
-        "pitch": -88.85776791189546,
-        "yaw": 94.3206897978813
+        "roll": 3.2029086666313162,
+        "pitch": -88.47494971764915,
+        "yaw": 94.37825179251001
       },
       "reprojection_error": {
-        "mean": 1.3175716400146484,
-        "max": 1.3175716400146484,
-        "method": "CORRECTED_APRILTAG",
+        "mean": 1.3356040716171265,
+        "max": 4.3385796546936035,
+        "method": "APRILTAG_GUESS",
         "point_count": 225
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 3.1070416885847294,
-        "pitch_offset": -88.85776791189546,
-        "yaw_offset": 94.3206897978813,
+        "roll_offset": 3.2029086666313162,
+        "pitch_offset": -88.47494971764915,
+        "yaw_offset": 94.37825179251001,
         "threshold": 0.5
       },
       "robust_info": {
         "total_solutions_tried": 4,
         "all_errors": [
-          1.341232419013977,
-          1.3412412405014038,
-          44.75053787231445,
-          1.3175716400146484
+          1.3356040716171265,
+          1.3356040716171265,
+          44.81918716430664,
+          1.3356040716171265
         ],
         "consistency_check": {
-          "angle_difference_deg": 172.67329753067344,
-          "translation_difference_mm": 3.659864563897035,
+          "angle_difference_deg": 172.82970355792438,
+          "translation_difference_mm": 3.6569554577562355,
           "is_consistent": false
         }
       }
@@ -2533,7 +2533,7 @@
       "timestamp": 1764057502.2956314,
       "success": true,
       "apriltag_success": true,
-      "method_used": "ITERATIVE",
+      "method_used": "CORRECTED_APRILTAG",
       "grid": {
         "rows_requested": 15,
         "cols_requested": 15,
@@ -3745,39 +3745,39 @@
         }
       },
       "euler_angles": {
-        "roll": 3.2199684916072897,
-        "pitch": 1.2440290758045762,
-        "yaw": 94.39831353112612
+        "roll": 3.2949585940559984,
+        "pitch": 1.3395170626878325,
+        "yaw": 94.39227831165942
       },
       "camera_tilt_angles": {
-        "roll": 3.1161323729167805,
-        "pitch": -88.51251696893257,
-        "yaw": 94.39831353112612
+        "roll": 3.1839205105890187,
+        "pitch": -88.41188955666779,
+        "yaw": 94.39227831165937
       },
       "reprojection_error": {
-        "mean": 1.347622036933899,
-        "max": 1.347622036933899,
-        "method": "ITERATIVE",
+        "mean": 1.3420206308364868,
+        "max": 4.352952003479004,
+        "method": "CORRECTED_APRILTAG",
         "point_count": 225
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 3.1161323729167805,
-        "pitch_offset": -88.51251696893257,
-        "yaw_offset": 94.39831353112612,
+        "roll_offset": 3.1839205105890187,
+        "pitch_offset": -88.41188955666779,
+        "yaw_offset": 94.39227831165937,
         "threshold": 0.5
       },
       "robust_info": {
         "total_solutions_tried": 4,
         "all_errors": [
-          1.3466943502426147,
-          1.347622036933899,
-          44.24937438964844,
-          1.3466943502426147
+          1.3420206308364868,
+          1.3420206308364868,
+          44.31858444213867,
+          1.3420206308364868
         ],
         "consistency_check": {
-          "angle_difference_deg": 173.9567545034973,
-          "translation_difference_mm": 3.6611019443598662,
+          "angle_difference_deg": 173.9735214255436,
+          "translation_difference_mm": 3.660459182673123,
           "is_consistent": false
         }
       }
@@ -4999,39 +4999,39 @@
         }
       },
       "euler_angles": {
-        "roll": 2.725161894333752,
-        "pitch": 0.41938792882913845,
-        "yaw": 94.50410170710933
+        "roll": 3.0898747048870803,
+        "pitch": 1.2721507878365799,
+        "yaw": 94.36415462850778
       },
       "camera_tilt_angles": {
-        "roll": 2.6839689065770926,
-        "pitch": -89.36774996870771,
-        "yaw": 94.50410170710933
+        "roll": 2.985141808747727,
+        "pitch": -88.49626364209217,
+        "yaw": 94.36415462850778
       },
       "reprojection_error": {
-        "mean": 1.3717787265777588,
-        "max": 1.3717787265777588,
+        "mean": 1.2942551374435425,
+        "max": 4.2947893142700195,
         "method": "APRILTAG_GUESS",
         "point_count": 225
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 2.6839689065770926,
-        "pitch_offset": -89.36774996870771,
-        "yaw_offset": 94.50410170710933,
+        "roll_offset": 2.985141808747727,
+        "pitch_offset": -88.49626364209217,
+        "yaw_offset": 94.36415462850778,
         "threshold": 0.5
       },
       "robust_info": {
         "total_solutions_tried": 4,
         "all_errors": [
-          1.3717787265777588,
-          1.299939513206482,
-          43.72516632080078,
-          1.298935055732727
+          1.2942551374435425,
+          1.2942551374435425,
+          43.794795989990234,
+          1.2942551374435425
         ],
         "consistency_check": {
-          "angle_difference_deg": 174.4919978073289,
-          "translation_difference_mm": 3.675538442565018,
+          "angle_difference_deg": 174.86744391203004,
+          "translation_difference_mm": 3.664544586623314,
           "is_consistent": false
         }
       }
@@ -5041,7 +5041,7 @@
       "timestamp": 1764057502.3618503,
       "success": true,
       "apriltag_success": true,
-      "method_used": "APRILTAG_GUESS",
+      "method_used": "CORRECTED_APRILTAG",
       "grid": {
         "rows_requested": 15,
         "cols_requested": 15,
@@ -6253,39 +6253,39 @@
         }
       },
       "euler_angles": {
-        "roll": -34.81100231704946,
-        "pitch": -12.451224486531004,
-        "yaw": 98.32202234544661
+        "roll": -34.87309502472482,
+        "pitch": -12.515402157338002,
+        "yaw": 98.35837834034521
       },
       "camera_tilt_angles": {
-        "roll": -33.92456479873519,
-        "pitch": -107.82448894486615,
-        "yaw": 98.32202234544661
+        "roll": -33.980950747835834,
+        "pitch": -107.92073503440068,
+        "yaw": 98.35837834034521
       },
       "reprojection_error": {
-        "mean": 1.4878969192504883,
-        "max": 1.4878969192504883,
-        "method": "APRILTAG_GUESS",
+        "mean": 1.5063984394073486,
+        "max": 5.620872497558594,
+        "method": "CORRECTED_APRILTAG",
         "point_count": 225
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": -33.92456479873519,
-        "pitch_offset": -107.82448894486615,
-        "yaw_offset": 98.32202234544661,
+        "roll_offset": -33.980950747835834,
+        "pitch_offset": -107.92073503440068,
+        "yaw_offset": 98.35837834034521,
         "threshold": 0.5
       },
       "robust_info": {
         "total_solutions_tried": 4,
         "all_errors": [
-          1.4878969192504883,
-          1.3114798069000244,
-          42.97848129272461,
-          1.4878935813903809
+          1.5063984394073486,
+          1.3058944940567017,
+          43.048500061035156,
+          1.5063984394073486
         ],
         "consistency_check": {
-          "angle_difference_deg": 154.95222352057348,
-          "translation_difference_mm": 3.849427922867897,
+          "angle_difference_deg": 154.9668627074808,
+          "translation_difference_mm": 3.8490705230557283,
           "is_consistent": false
         }
       }
@@ -7507,39 +7507,39 @@
         }
       },
       "euler_angles": {
-        "roll": 2.9274972089052937,
-        "pitch": 1.3022187492167348,
-        "yaw": 94.34927589757342
+        "roll": 3.004094521900498,
+        "pitch": 1.3985681016057185,
+        "yaw": 94.34303587344675
       },
       "camera_tilt_angles": {
-        "roll": 2.821309522728569,
-        "pitch": -88.47940338238784,
-        "yaw": 94.34927589757342
+        "roll": 2.8907230709010037,
+        "pitch": -88.37783462885344,
+        "yaw": 94.34303587344675
       },
       "reprojection_error": {
-        "mean": 1.308898687362671,
-        "max": 1.308898687362671,
+        "mean": 1.3033466339111328,
+        "max": 4.290642261505127,
         "method": "ITERATIVE",
         "point_count": 225
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 2.821309522728569,
-        "pitch_offset": -88.47940338238784,
-        "yaw_offset": 94.34927589757342,
+        "roll_offset": 2.8907230709010037,
+        "pitch_offset": -88.37783462885344,
+        "yaw_offset": 94.34303587344675,
         "threshold": 0.5
       },
       "robust_info": {
         "total_solutions_tried": 4,
         "all_errors": [
-          1.3074522018432617,
-          1.308898687362671,
-          43.52579879760742,
-          1.3074522018432617
+          1.3033465147018433,
+          1.3033466339111328,
+          43.59554672241211,
+          1.3033466339111328
         ],
         "consistency_check": {
-          "angle_difference_deg": 174.63166498222503,
-          "translation_difference_mm": 3.670671432698868,
+          "angle_difference_deg": 174.64785132860084,
+          "translation_difference_mm": 3.6700047402294813,
           "is_consistent": false
         }
       }
@@ -7549,7 +7549,7 @@
       "timestamp": 1764057502.4293945,
       "success": true,
       "apriltag_success": true,
-      "method_used": "CORRECTED_APRILTAG",
+      "method_used": "ITERATIVE",
       "grid": {
         "rows_requested": 15,
         "cols_requested": 15,
@@ -8761,39 +8761,39 @@
         }
       },
       "euler_angles": {
-        "roll": 3.095424457215387,
-        "pitch": 1.0039916295488922,
-        "yaw": 94.31164981000569
+        "roll": 3.231820376899236,
+        "pitch": 1.4187706017628727,
+        "yaw": 94.3854099557617
       },
       "camera_tilt_angles": {
-        "roll": 3.011878345488924,
-        "pitch": -88.76595713257801,
-        "yaw": 94.31164981000569
+        "roll": 3.1151875357936945,
+        "pitch": -88.33810036424744,
+        "yaw": 94.3854099557617
       },
       "reprojection_error": {
-        "mean": 1.3322840929031372,
-        "max": 1.3322840929031372,
-        "method": "CORRECTED_APRILTAG",
+        "mean": 1.3506531715393066,
+        "max": 4.34409761428833,
+        "method": "ITERATIVE",
         "point_count": 225
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 3.011878345488924,
-        "pitch_offset": -88.76595713257801,
-        "yaw_offset": 94.31164981000569,
+        "roll_offset": 3.1151875357936945,
+        "pitch_offset": -88.33810036424744,
+        "yaw_offset": 94.3854099557617,
         "threshold": 0.5
       },
       "robust_info": {
         "total_solutions_tried": 4,
         "all_errors": [
-          1.3322840929031372,
-          1.3562300205230713,
-          44.92786407470703,
-          1.3322840929031372
+          1.3506532907485962,
+          1.3506531715393066,
+          44.99595642089844,
+          1.3506535291671753
         ],
         "consistency_check": {
-          "angle_difference_deg": 174.53698038514096,
-          "translation_difference_mm": 3.6680464641644432,
+          "angle_difference_deg": 174.70693218319462,
+          "translation_difference_mm": 3.6644308879105445,
           "is_consistent": false
         }
       }
@@ -8803,7 +8803,7 @@
       "timestamp": 1764057502.4627216,
       "success": true,
       "apriltag_success": true,
-      "method_used": "CORRECTED_APRILTAG",
+      "method_used": "APRILTAG_GUESS",
       "grid": {
         "rows_requested": 15,
         "cols_requested": 15,
@@ -10015,39 +10015,39 @@
         }
       },
       "euler_angles": {
-        "roll": 3.077982658412992,
-        "pitch": 1.1519305915128086,
-        "yaw": 94.39733568645624
+        "roll": 3.1528124232607695,
+        "pitch": 1.2482102524572838,
+        "yaw": 94.39103434998952
       },
       "camera_tilt_angles": {
-        "roll": 2.9814711779144147,
-        "pitch": -88.615303031444,
-        "yaw": 94.39733568645624
+        "roll": 3.0490184283032136,
+        "pitch": -88.51389989339424,
+        "yaw": 94.39103434998952
       },
       "reprojection_error": {
-        "mean": 1.3333770036697388,
-        "max": 1.3333770036697388,
-        "method": "CORRECTED_APRILTAG",
+        "mean": 1.3277506828308105,
+        "max": 4.2844367027282715,
+        "method": "APRILTAG_GUESS",
         "point_count": 225
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 2.9814711779144147,
-        "pitch_offset": -88.615303031444,
-        "yaw_offset": 94.39733568645624,
+        "roll_offset": 3.0490184283032136,
+        "pitch_offset": -88.51389989339424,
+        "yaw_offset": 94.39103434998952,
         "threshold": 0.5
       },
       "robust_info": {
         "total_solutions_tried": 4,
         "all_errors": [
-          1.3333466053009033,
-          1.3333542346954346,
-          44.50424575805664,
-          1.3333770036697388
+          1.3277506828308105,
+          1.327750563621521,
+          44.5724983215332,
+          1.3277506828308105
         ],
         "consistency_check": {
-          "angle_difference_deg": 172.67652739632388,
-          "translation_difference_mm": 3.6628354989866754,
+          "angle_difference_deg": 172.69462890803936,
+          "translation_difference_mm": 3.662210738150749,
           "is_consistent": false
         }
       }
@@ -11269,39 +11269,39 @@
         }
       },
       "euler_angles": {
-        "roll": 2.923495037360823,
-        "pitch": 1.3863429824086495,
-        "yaw": 94.39081082154053
+        "roll": 3.000165177654196,
+        "pitch": 1.4824575780912141,
+        "yaw": 94.38465419474954
       },
       "camera_tilt_angles": {
-        "roll": 2.8098884759076554,
-        "pitch": -88.39379671228038,
-        "yaw": 94.39081082154053
+        "roll": 2.8793355220947205,
+        "pitch": -88.2924017147974,
+        "yaw": 94.38465419474954
       },
       "reprojection_error": {
-        "mean": 1.2814043760299683,
-        "max": 1.2814043760299683,
+        "mean": 1.2758265733718872,
+        "max": 4.402281761169434,
         "method": "ITERATIVE",
         "point_count": 225
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 2.8098884759076554,
-        "pitch_offset": -88.39379671228038,
-        "yaw_offset": 94.39081082154053,
+        "roll_offset": 2.8793355220947205,
+        "pitch_offset": -88.2924017147974,
+        "yaw_offset": 94.38465419474954,
         "threshold": 0.5
       },
       "robust_info": {
         "total_solutions_tried": 4,
         "all_errors": [
-          22.679481506347656,
-          1.2814043760299683,
-          42.4495849609375,
-          1.2797430753707886
+          1.2758265733718872,
+          1.2758265733718872,
+          42.51991271972656,
+          1.2758270502090454
         ],
         "consistency_check": {
-          "angle_difference_deg": 175.8762226014491,
-          "translation_difference_mm": 3.6756078512907044,
+          "angle_difference_deg": 175.89201446367886,
+          "translation_difference_mm": 3.6749349211130475,
           "is_consistent": false
         }
       }
@@ -12523,39 +12523,39 @@
         }
       },
       "euler_angles": {
-        "roll": 3.0334971984242145,
-        "pitch": 1.3377090983376263,
-        "yaw": 94.38092631140461
+        "roll": 3.109309006384592,
+        "pitch": 1.4335401794389213,
+        "yaw": 94.37480848512666
       },
       "camera_tilt_angles": {
-        "roll": 2.9235464804571336,
-        "pitch": -88.43434671456876,
-        "yaw": 94.38092631140461
+        "roll": 2.9921709431666272,
+        "pitch": -88.33332100356405,
+        "yaw": 94.37480848512666
       },
       "reprojection_error": {
-        "mean": 1.2991390228271484,
-        "max": 1.2991390228271484,
+        "mean": 1.2936092615127563,
+        "max": 4.30232048034668,
         "method": "ITERATIVE",
         "point_count": 225
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 2.9235464804571336,
-        "pitch_offset": -88.43434671456876,
-        "yaw_offset": 94.38092631140461,
+        "roll_offset": 2.9921709431666272,
+        "pitch_offset": -88.33332100356405,
+        "yaw_offset": 94.37480848512666,
         "threshold": 0.5
       },
       "robust_info": {
         "total_solutions_tried": 4,
         "all_errors": [
-          112.17784881591797,
-          1.2991390228271484,
-          43.014686584472656,
-          2.319927215576172
+          28.29500389099121,
+          1.2936092615127563,
+          43.08454132080078,
+          1.2936092615127563
         ],
         "consistency_check": {
-          "angle_difference_deg": 174.618538548401,
-          "translation_difference_mm": 3.671246431568227,
+          "angle_difference_deg": 174.63515809793049,
+          "translation_difference_mm": 3.670586479741073,
           "is_consistent": false
         }
       }
@@ -12565,7 +12565,7 @@
       "timestamp": 1764057502.5627825,
       "success": true,
       "apriltag_success": true,
-      "method_used": "ITERATIVE",
+      "method_used": "CORRECTED_APRILTAG",
       "grid": {
         "rows_requested": 15,
         "cols_requested": 15,
@@ -13777,39 +13777,39 @@
         }
       },
       "euler_angles": {
-        "roll": 3.063669116709576,
-        "pitch": 1.2671654198125566,
-        "yaw": 94.3906775780315
+        "roll": 3.1392402392201006,
+        "pitch": 1.3630741986999624,
+        "yaw": 94.3845101968397
       },
       "camera_tilt_angles": {
-        "roll": 2.9586818681429747,
-        "pitch": -88.50186298703863,
-        "yaw": 94.3906775780315
+        "roll": 3.027030378779955,
+        "pitch": -88.40077216826379,
+        "yaw": 94.3845101968397
       },
       "reprojection_error": {
-        "mean": 1.3126020431518555,
-        "max": 1.3126020431518555,
-        "method": "ITERATIVE",
+        "mean": 1.3070058822631836,
+        "max": 4.3458333015441895,
+        "method": "CORRECTED_APRILTAG",
         "point_count": 225
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 2.9586818681429747,
-        "pitch_offset": -88.50186298703863,
-        "yaw_offset": 94.3906775780315,
+        "roll_offset": 3.027030378779955,
+        "pitch_offset": -88.40077216826379,
+        "yaw_offset": 94.3845101968397,
         "threshold": 0.5
       },
       "robust_info": {
         "total_solutions_tried": 4,
         "all_errors": [
-          38.00685501098633,
-          1.3126020431518555,
-          43.225860595703125,
-          1.288609504699707
+          1.3070062398910522,
+          1.3070058822631836,
+          43.295738220214844,
+          1.3070058822631836
         ],
         "consistency_check": {
-          "angle_difference_deg": 174.54147320089803,
-          "translation_difference_mm": 3.669867868347439,
+          "angle_difference_deg": 174.55822211376858,
+          "translation_difference_mm": 3.669214868310422,
           "is_consistent": false
         }
       }
@@ -13819,7 +13819,7 @@
       "timestamp": 1764057502.5957396,
       "success": true,
       "apriltag_success": true,
-      "method_used": "ITERATIVE",
+      "method_used": "APRILTAG_GUESS",
       "grid": {
         "rows_requested": 15,
         "cols_requested": 15,
@@ -15031,39 +15031,39 @@
         }
       },
       "euler_angles": {
-        "roll": 3.119717364023586,
-        "pitch": 1.1897874469931367,
-        "yaw": 94.39357465159264
+        "roll": 3.1944922054195786,
+        "pitch": 1.28554189447172,
+        "yaw": 94.38737976184638
       },
       "camera_tilt_angles": {
-        "roll": 3.0203384630144114,
-        "pitch": -88.57455163548887,
-        "yaw": 94.39357465159264
+        "roll": 3.087885558431992,
+        "pitch": -88.47367935236014,
+        "yaw": 94.38737976184638
       },
       "reprojection_error": {
-        "mean": 1.3000179529190063,
-        "max": 1.3000179529190063,
-        "method": "ITERATIVE",
+        "mean": 1.2943955659866333,
+        "max": 4.328467845916748,
+        "method": "APRILTAG_GUESS",
         "point_count": 225
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 3.0203384630144114,
-        "pitch_offset": -88.57455163548887,
-        "yaw_offset": 94.39357465159264,
+        "roll_offset": 3.087885558431992,
+        "pitch_offset": -88.47367935236014,
+        "yaw_offset": 94.38737976184638,
         "threshold": 0.5
       },
       "robust_info": {
         "total_solutions_tried": 4,
         "all_errors": [
-          27.938758850097656,
-          1.3000179529190063,
-          44.292030334472656,
-          2.301720380783081
+          1.2943955659866333,
+          1.294395923614502,
+          44.36014175415039,
+          1.2943955659866333
         ],
         "consistency_check": {
-          "angle_difference_deg": 174.921142259354,
-          "translation_difference_mm": 3.6632278009438717,
+          "angle_difference_deg": 174.93830262114963,
+          "translation_difference_mm": 3.662593083435429,
           "is_consistent": false
         }
       }
@@ -15073,7 +15073,7 @@
       "timestamp": 1764057502.6298964,
       "success": true,
       "apriltag_success": true,
-      "method_used": "ITERATIVE",
+      "method_used": "CORRECTED_APRILTAG",
       "grid": {
         "rows_requested": 15,
         "cols_requested": 15,
@@ -16285,39 +16285,39 @@
         }
       },
       "euler_angles": {
-        "roll": 3.0647949414821483,
-        "pitch": 1.3516790144846595,
-        "yaw": 94.40058249828974
+        "roll": 3.1409187730639587,
+        "pitch": 1.4472618748121988,
+        "yaw": 94.39453837499826
       },
       "camera_tilt_angles": {
-        "roll": 2.953178555012215,
-        "pitch": -88.41700938935767,
-        "yaw": 94.40058249828974
+        "roll": 3.022101570683134,
+        "pitch": -88.31618296282736,
+        "yaw": 94.39453837499826
       },
       "reprojection_error": {
-        "mean": 1.3346368074417114,
-        "max": 1.3346368074417114,
-        "method": "ITERATIVE",
+        "mean": 1.3290839195251465,
+        "max": 4.322278022766113,
+        "method": "CORRECTED_APRILTAG",
         "point_count": 225
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 2.953178555012215,
-        "pitch_offset": -88.41700938935767,
-        "yaw_offset": 94.40058249828974,
+        "roll_offset": 3.022101570683134,
+        "pitch_offset": -88.31618296282736,
+        "yaw_offset": 94.39453837499826,
         "threshold": 0.5
       },
       "robust_info": {
         "total_solutions_tried": 4,
         "all_errors": [
-          1.3346372842788696,
-          1.3346368074417114,
-          44.07471466064453,
-          1.3346372842788696
+          1.3290839195251465,
+          1.3290841579437256,
+          44.143375396728516,
+          1.3290839195251465
         ],
         "consistency_check": {
-          "angle_difference_deg": 174.1672819546589,
-          "translation_difference_mm": 3.669082390162829,
+          "angle_difference_deg": 174.18346223154074,
+          "translation_difference_mm": 3.668416296232924,
           "is_consistent": false
         }
       }
@@ -16327,7 +16327,7 @@
       "timestamp": 1764057502.662582,
       "success": true,
       "apriltag_success": true,
-      "method_used": "CORRECTED_APRILTAG",
+      "method_used": "ITERATIVE",
       "grid": {
         "rows_requested": 15,
         "cols_requested": 15,
@@ -17539,39 +17539,39 @@
         }
       },
       "euler_angles": {
-        "roll": 2.9399768665025476,
-        "pitch": 1.0539459227291843,
-        "yaw": 94.36152187443133
+        "roll": 3.054605375724634,
+        "pitch": 1.3210381625291348,
+        "yaw": 94.38172937335838
       },
       "camera_tilt_angles": {
-        "roll": 2.852015926098119,
-        "pitch": -88.72538018042732,
-        "yaw": 94.36152187443133
+        "roll": 2.9458314915592325,
+        "pitch": -88.44930968018389,
+        "yaw": 94.38172937335838
       },
       "reprojection_error": {
-        "mean": 1.2815102338790894,
-        "max": 1.2815102338790894,
-        "method": "CORRECTED_APRILTAG",
+        "mean": 1.291478157043457,
+        "max": 4.330821990966797,
+        "method": "ITERATIVE",
         "point_count": 225
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 2.852015926098119,
-        "pitch_offset": -88.72538018042732,
-        "yaw_offset": 94.36152187443133,
+        "roll_offset": 2.9458314915592325,
+        "pitch_offset": -88.44930968018389,
+        "yaw_offset": 94.38172937335838,
         "threshold": 0.5
       },
       "robust_info": {
         "total_solutions_tried": 4,
         "all_errors": [
-          10.240885734558105,
-          1.2970961332321167,
-          43.330013275146484,
-          1.2815102338790894
+          1.2914782762527466,
+          1.291478157043457,
+          43.39964294433594,
+          1.291478157043457
         ],
         "consistency_check": {
-          "angle_difference_deg": 174.62359115701528,
-          "translation_difference_mm": 3.671132643488392,
+          "angle_difference_deg": 174.72285419680938,
+          "translation_difference_mm": 3.669013644559646,
           "is_consistent": false
         }
       }
@@ -18793,39 +18793,39 @@
         }
       },
       "euler_angles": {
-        "roll": 2.9268329501067,
-        "pitch": 1.28697534685395,
-        "yaw": 94.40691598058635
+        "roll": 3.0035290421280934,
+        "pitch": 1.3834191713270059,
+        "yaw": 94.400646518163
       },
       "camera_tilt_angles": {
-        "roll": 2.820270651530734,
-        "pitch": -88.4918135575862,
-        "yaw": 94.40691598058635
+        "roll": 2.889671057979342,
+        "pitch": -88.39007480794484,
+        "yaw": 94.400646518163
       },
       "reprojection_error": {
-        "mean": 1.3044253587722778,
-        "max": 1.3044253587722778,
+        "mean": 1.2989600896835327,
+        "max": 4.355111122131348,
         "method": "ITERATIVE",
         "point_count": 225
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 2.820270651530734,
-        "pitch_offset": -88.4918135575862,
-        "yaw_offset": 94.40691598058635,
+        "roll_offset": 2.889671057979342,
+        "pitch_offset": -88.39007480794484,
+        "yaw_offset": 94.400646518163,
         "threshold": 0.5
       },
       "robust_info": {
         "total_solutions_tried": 4,
         "all_errors": [
-          3.487945795059204,
-          1.3044253587722778,
-          42.290069580078125,
-          1.3043676614761353
+          1.2989600896835327,
+          1.2989600896835327,
+          42.36149215698242,
+          1.2989600896835327
         ],
         "consistency_check": {
-          "angle_difference_deg": 174.34415882479706,
-          "translation_difference_mm": 3.672519474793404,
+          "angle_difference_deg": 174.36042373762822,
+          "translation_difference_mm": 3.6718528280605236,
           "is_consistent": false
         }
       }
@@ -18835,7 +18835,7 @@
       "timestamp": 1764057502.7297306,
       "success": true,
       "apriltag_success": true,
-      "method_used": "ITERATIVE",
+      "method_used": "CORRECTED_APRILTAG",
       "grid": {
         "rows_requested": 15,
         "cols_requested": 15,
@@ -20047,39 +20047,39 @@
         }
       },
       "euler_angles": {
-        "roll": 2.96543691516203,
-        "pitch": 1.1742827589420983,
-        "yaw": 94.4000973575321
+        "roll": 3.0414175763160927,
+        "pitch": 1.2708587872815258,
+        "yaw": 94.39374284322548
       },
       "camera_tilt_angles": {
-        "roll": 2.8674603615886554,
-        "pitch": -88.60153044967637,
-        "yaw": 94.4000973575321
+        "roll": 2.936128051390881,
+        "pitch": -88.49973132842472,
+        "yaw": 94.39374284322548
       },
       "reprojection_error": {
-        "mean": 1.2960331439971924,
-        "max": 1.2960331439971924,
-        "method": "ITERATIVE",
+        "mean": 1.2905266284942627,
+        "max": 4.354069232940674,
+        "method": "CORRECTED_APRILTAG",
         "point_count": 225
       },
       "tilt_detection": {
         "has_tilt": true,
-        "roll_offset": 2.8674603615886554,
-        "pitch_offset": -88.60153044967637,
-        "yaw_offset": 94.4000973575321,
+        "roll_offset": 2.936128051390881,
+        "pitch_offset": -88.49973132842472,
+        "yaw_offset": 94.39374284322548,
         "threshold": 0.5
       },
       "robust_info": {
         "total_solutions_tried": 4,
         "all_errors": [
-          6.742288589477539,
-          1.2960331439971924,
-          42.964237213134766,
-          1.2949137687683105
+          1.2905267477035522,
+          1.2905267477035522,
+          43.03443908691406,
+          1.2905266284942627
         ],
         "consistency_check": {
-          "angle_difference_deg": 174.38205180396554,
-          "translation_difference_mm": 3.6686585901723543,
+          "angle_difference_deg": 174.39867837080092,
+          "translation_difference_mm": 3.6680114635562204,
           "is_consistent": false
         }
       }

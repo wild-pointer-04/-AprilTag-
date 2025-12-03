@@ -5,11 +5,11 @@ import numpy as np
 # 统一的 blob 检测参数集中配置，所有检测流程共享
 # 这些参数已经过优化，适应不同光照和透视条件
 BLOB_DETECTOR_PARAMS = {
-    "minArea": 20,           # 降低最小面积，适应透视畸变下的小圆点
-    "maxArea": 150,        # 增大最大面积，适应透视畸变下的大圆点（之前60太小了！）
-    "minCircularity": 0.2,  # 进一步降低圆度要求，适应椭圆变形
+    "minArea": 50,           # 降低最小面积，适应透视畸变下的小圆点
+    "maxArea": 1000,        # 增大最大面积，适应透视畸变下的大圆点（之前60太小了！）
+    "minCircularity": 0.3,  # 进一步降低圆度要求，适应椭圆变形
     "maxCircularity": 1.0,
-    "minInertiaRatio": 0.2, # 进一步降低惯性比，适应严重变形
+    "minInertiaRatio": 0.3, # 进一步降低惯性比，适应严重变形
     "filterByConvexity": False,
     "minThreshold": 1,       # 降低起始阈值，提高检测敏感度
     "maxThreshold": 250,     # 提高最大阈值，适应不同光照
