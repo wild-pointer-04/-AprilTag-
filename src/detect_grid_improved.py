@@ -85,7 +85,7 @@ def refine_improved(gray, pts, use_weighted_centroid=True):
         return cv2.cornerSubPix(g, pts.astype(np.float32), (5, 5), (-1, -1), crit)
 
 
-def smart_auto_search(gray, rows_range=(8, 28), cols_range=(8, 28), max_attempts=50, timeout_seconds=10.0):
+def smart_auto_search(gray, rows_range=(8, 28), cols_range=(8, 28), max_attempts=100, timeout_seconds=20.0):
     """
     智能自动搜索，先估计网格尺寸再搜索
     

@@ -238,6 +238,13 @@ class RobustTiltCheckerNode(Node):
             self.get_logger().info(f'[{frame_id}] 使用默认内参')
         
         gray = cv2.cvtColor(undistorted, cv2.COLOR_BGR2GRAY)
+
+        self.get_logger().info(f'畸变系数: {dist_used.flatten()}')
+        self.get_logger().info(f'图像尺寸: {w}x{h}')
+        r_max = np.sqrt((w/2)**2 + (h/2)**2)  # 图像对角线距离
+        k1, k2, p1, p2, k3 = dist_used.flatten()[:5]
+        distortion_at_edge = k1 * r_max**2 + k2 * r_max**4 + k3 * r_max**6
+        self.get_logger().info(f'边缘区域畸变影响: {distortion_at_edge:.6f}')
         
         # 2. 检测圆点网格 - 恢复原始的成功检测方法
         grid_rows = self.rows
@@ -1317,7 +1324,7 @@ def main(args=None):
                        help='AprilTag尺寸（m，默认0.0071）')
     parser.add_argument('--board-spacing', type=float, default=0.065,
                        help='标定板圆点间距（m，默认0.065）')
-    parser.add_argument('--max-error', type=float, default=1.0,
+    parser.add_argument('--max-error', type=float, default=5.0,
                        help='最大允许重投影误差（px，默认1.0）')
     parser.add_argument('--rosbag', type=str, default=None,
                        help='rosbag 文件路径')

@@ -438,14 +438,14 @@ if __name__ == "__main__":
     
     # # 理论精度极限
     # print(f"\n理论精度极限（重投影误差=0.1px）:")
-    theoretical_results = calculate_3d_error_from_reprojection(
-        reprojection_error_px=0.1,
-        camera_matrix=K,
-        distance_z_mm=args.distance,
-        board_rows=args.rows,
-        board_cols=args.cols,
-        board_spacing_mm=args.spacing,
-        gripper_offset_mm=args.gripper_offset
-    )
-    print(f"  在距离 {args.distance:.0f}mm 处，理论最佳3D误差: ±{theoretical_results['error_3d_mm']:.3f} mm")
-    print(f"  当前误差是理论极限的 {error_to_evaluate/theoretical_results['error_3d_mm']:.1f} 倍")
+    # theoretical_results = calculate_3d_error_from_reprojection(
+    #     reprojection_error_px=0.1,
+    #     camera_matrix=K,
+    #     distance_z_mm=args.distance,
+    #     board_rows=args.rows,
+    #     board_cols=args.cols,
+    #     board_spacing_mm=args.spacing,
+    #     gripper_offset_mm=args.gripper_offset
+    # )
+    # print(f"  在距离 {args.distance:.0f}mm 处，理论最佳3D误差: ±{theoretical_results['error_3d_mm']:.3f} mm")
+    # print(f"  当前误差是理论极限的 {error_to_evaluate/theoretical_results['error_3d_mm']:.1f} 倍")
