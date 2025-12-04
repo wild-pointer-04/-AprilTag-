@@ -4,9 +4,20 @@
 
 
 直接使用：
+
+用rosbag进行检测
 python robust_tilt_checker_node.py   --max-error 3.0   --rosbag rosbags/testbag   --image-topic /left/color/image_raw   --camera-yaml config/camera_info.yaml   --rows 15 --cols 15   --tag-family tagStandard41h12   --tag-size 0.0071   --board-spacing 0.065   --publish-results   --save-images   --output-dir outputs/robust_apriltag_recording_final_result
 
+从data数据集图片进行检测
+python robust_tilt_checker_node.py   --max-error 20.0   --image-dir data   --camera-yaml config/camera_info.yaml   --rows 15   --cols 15   --tag-family tagStandard41h12   --tag-size 0.0071   --board-spacing 0.065   --save-images   --output-dir outputs/robust_apriltag_recording_final_resl
+
+计算由于重投影误差造成的3D世界误差
+python3 calculate_3d_error.py   --reprojection-error 0.8   --distance 1600   --camera-yaml config/camera_info.yaml   --rows 15   --cols 15   --spacing 65.0   --gripper-offset 0
+
+计算像素角分辨率，PPD和DPP
+python compute_pixel_angular_resolution.py --camera-yaml config/camera_info.yaml --image-dir data
 ---
+
 
 ## 📋 目录
 
