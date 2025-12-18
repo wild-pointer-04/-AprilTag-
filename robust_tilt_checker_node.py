@@ -39,7 +39,7 @@ import json
 import csv
 from datetime import datetime
 from pathlib import Path
-
+from src.testwhynotpipei import diagnose_matching, visualize_unmatched_details
 # 添加项目根目录到路径
 script_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(script_dir) if 'src' in script_dir else script_dir
@@ -53,6 +53,7 @@ from src.utils import (
 from src.detect_grid_improved import try_find_adaptive, refine, auto_search
 from src.robust_apriltag_system import RobustAprilTagSystem
 from src.apriltag_coordinate_system import AprilTagCoordinateSystem
+from src.apriltag_guided_grid_detector import AprilTagGuidedGridDetector
 
 
 class RobustTiltCheckerNode(Node):
@@ -89,6 +90,8 @@ class RobustTiltCheckerNode(Node):
         self.save_results = save_results
         self.publish_results = publish_results
         self.rosbag_path = rosbag_path
+        self.transform_records = []
+        self.pnp_array_records = []
         # 创建ROS话题发布器（发布变换参数）
         if self.publish_results:
             self.transform_publisher = self.create_publisher(
@@ -114,6 +117,16 @@ class RobustTiltCheckerNode(Node):
             tag_size=tag_size,
             board_spacing=board_spacing,
             max_reprojection_error=max_reprojection_error
+        )
+        
+        # 初始化AprilTag引导的网格检测器（用于部分遮挡情况）
+        self.guided_detector = AprilTagGuidedGridDetector(
+            pattern_size=(cols, rows),
+            circle_spacing=board_spacing,
+            apriltag_size=tag_size,
+            tag_family=tag_family,
+            max_match_distance=20.0,
+            image_margin=20.0
         )
         
         # 加载相机内参
@@ -251,6 +264,7 @@ class RobustTiltCheckerNode(Node):
         grid_cols = self.cols
         grid_symmetric = True
         detection_source = 'direct'
+        guided_result = None  # 用于保存AprilTag引导检测的结果
         
         self.get_logger().info(f'[{frame_id}] 🔍 检测标定板角点 ({grid_rows}×{grid_cols})...')
         
@@ -290,47 +304,106 @@ class RobustTiltCheckerNode(Node):
                 else:
                     ok = False
             
+            # 用于保存引导检测结果（如果使用）
+            guided_result = None
+            
             if not ok or corners is None:
-                self.get_logger().warn(f'[{frame_id}] ❌ 未检测到网格')
+                self.get_logger().warn(f'[{frame_id}] ❌ 常规检测未检测到完整网格，尝试AprilTag引导检测...')
                 
-                # 保存失败帧的图像用于调试
-                if self.save_images:
-                    fail_img_path = os.path.join(self.output_dir, 'images', f'{frame_id}_FAILED.png')
-                    fail_vis = undistorted.copy()
+                # 尝试使用AprilTag引导的检测方法
+                try:
+                    guided_result = self.guided_detector.detect(undistorted)
                     
-                    # 如果有blob_keypoints，绘制出来
-                    if blob_keypoints is not None and len(blob_keypoints) > 0:
-                        for kp in blob_keypoints:
-                            x, y = int(kp.pt[0]), int(kp.pt[1])
-                            cv2.circle(fail_vis, (x, y), 5, (0, 255, 0), 2)
-                        cv2.putText(fail_vis, f'Blob detected: {len(blob_keypoints)}', (10, 30),
-                                   cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+                    if guided_result['success'] and len(guided_result['corners']) >= 50:  # 至少需要50个点
+                        self.get_logger().info(
+                            f'[{frame_id}] ✅ AprilTag引导检测成功！匹配了 {guided_result["match_count"]} 个点'
+                        )
+                        
+                        # 使用引导检测的结果
+                        corners = guided_result['corners']  # (M, 1, 2)
+                        grid_rows = guided_result['grid_rows']
+                        grid_cols = guided_result['grid_cols']
+                        detection_source = 'apriltag_guided'
+                        
+                        # 保存引导检测的可视化结果
+                        if self.save_images:
+                            guided_vis = self.guided_detector.visualize(undistorted, guided_result)
+                            guided_vis_path = os.path.join(self.output_dir, 'images', f'{frame_id}_guided_detection.png')
+                            cv2.imwrite(guided_vis_path, guided_vis)
+                            self.get_logger().info(f'[{frame_id}] 💾 已保存引导检测可视化: {guided_vis_path}')
+                        
+                        ok = True
                     else:
-                        cv2.putText(fail_vis, 'NO BLOBS DETECTED!', (10, 30),
-                                   cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-                    
-                    cv2.putText(fail_vis, f'Frame: {frame_id}', (10, 70),
-                               cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
-                    cv2.imwrite(fail_img_path, fail_vis)
-                    self.get_logger().info(f'[{frame_id}] 💾 已保存失败帧图像: {fail_img_path}')
+                        self.get_logger().warn(
+                            f'[{frame_id}] AprilTag引导检测失败或点数不足: '
+                            f'{guided_result.get("match_count", 0) if guided_result.get("success") else "未检测到AprilTag"}'
+                        )
+                        ok = False
+                        guided_result = None
+                except Exception as e:
+                    self.get_logger().warn(f'[{frame_id}] AprilTag引导检测异常: {e}')
+                    ok = False
+                    guided_result = None
                 
-                self.failure_count += 1
-                return None
+                if not ok:
+                    # 保存失败帧的图像用于调试
+                    if self.save_images:
+                        fail_img_path = os.path.join(self.output_dir, 'images', f'{frame_id}_FAILED.png')
+                        fail_vis = undistorted.copy()
+                        
+                        # 如果有blob_keypoints，绘制出来
+                        if blob_keypoints is not None and len(blob_keypoints) > 0:
+                            for kp in blob_keypoints:
+                                x, y = int(kp.pt[0]), int(kp.pt[1])
+                                cv2.circle(fail_vis, (x, y), 5, (0, 255, 0), 2)
+                            cv2.putText(fail_vis, f'Blob detected: {len(blob_keypoints)}', (10, 30),
+                                       cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+                        else:
+                            cv2.putText(fail_vis, 'NO BLOBS DETECTED!', (10, 30),
+                                       cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+                        
+                        cv2.putText(fail_vis, f'Frame: {frame_id}', (10, 70),
+                                   cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
+                        cv2.imwrite(fail_img_path, fail_vis)
+                        self.get_logger().info(f'[{frame_id}] 💾 已保存失败帧图像: {fail_img_path}')
+                    
+                    self.failure_count += 1
+                    return None
             
             # 检查点数是否匹配（与原始节点相同的验证）
+            # 注意：AprilTag引导检测可能只有部分点，需要特殊处理
             expected_pts = grid_rows * grid_cols
-            if len(corners) != expected_pts:
-                self.get_logger().warn(
-                    f'[{frame_id}] 检测到 {len(corners)} 个点，但当前网格设置为 {grid_rows}×{grid_cols}={expected_pts} 个，'
-                    ' 无法建立稳定坐标系。'
-                )
-                self.failure_count += 1
-                return None
-            
-            # 精化角点
-            corners = np.asarray(corners, dtype=np.float32).reshape(-1, 1, 2)
-            corners_refined = refine(gray, corners)
-            board_corners_2d = corners_refined.reshape(-1, 2)
+            if detection_source == 'apriltag_guided':
+                # AprilTag引导检测：允许部分点，但至少需要一定数量
+                min_required_points = max(50, expected_pts * 0.3)  # 至少30%的点或50个点
+                if len(corners) < min_required_points:
+                    self.get_logger().warn(
+                        f'[{frame_id}] AprilTag引导检测点数不足: {len(corners)} < {min_required_points}'
+                    )
+                    self.failure_count += 1
+                    return None
+                else:
+                    self.get_logger().info(
+                        f'[{frame_id}] AprilTag引导检测: {len(corners)}/{expected_pts} 个点 '
+                        f'({len(corners)/expected_pts*100:.1f}%)'
+                    )
+                # 角点已经精化过，直接使用
+                corners_refined = corners
+                board_corners_2d = corners.reshape(-1, 2)
+            else:
+                # 常规检测：必须匹配完整点数
+                if len(corners) != expected_pts:
+                    self.get_logger().warn(
+                        f'[{frame_id}] 检测到 {len(corners)} 个点，但当前网格设置为 {grid_rows}×{grid_cols}={expected_pts} 个，'
+                        ' 无法建立稳定坐标系。'
+                    )
+                    self.failure_count += 1
+                    return None
+                
+                # 精化角点
+                corners = np.asarray(corners, dtype=np.float32).reshape(-1, 1, 2)
+                corners_refined = refine(gray, corners)
+                board_corners_2d = corners_refined.reshape(-1, 2)
             
             self.get_logger().info(f'[{frame_id}] ✅ 检测到 {len(board_corners_2d)} 个角点')
             
@@ -339,41 +412,75 @@ class RobustTiltCheckerNode(Node):
             self.failure_count += 1
             return None
         
-        # 3. 基于AprilTag建立坐标系（与tilt_checker_with_apriltag.py相同的方法）
-        self.get_logger().info(f'[{frame_id}] 🔧 建立AprilTag坐标系...')
-        
-        try:
-            coord_success, origin_2d, x_direction, y_direction, coord_info = self.standard_system.establish_coordinate_system(
-                undistorted, board_corners_2d, K_used, dist_used, grid_rows, grid_cols
-            )
+        # 3. 基于AprilTag建立坐标系
+        # 如果使用AprilTag引导检测，已经建立了坐标系，跳过此步骤
+        if detection_source == 'apriltag_guided' and guided_result is not None:
+            # 使用引导检测的结果，已经按网格顺序排列
+            ordered_corners = corners_refined
+            # 从引导检测结果中获取AprilTag信息
+            if guided_result['success']:
+                apriltag_info = guided_result['apriltag_info']
+                coord_info = {
+                    'tag_id': apriltag_info['tag_id'],
+                    'tag_center': apriltag_info['center'],
+                    'tag_corners': apriltag_info['corners'],
+                    'origin_2d': None,  # 引导检测不需要原点
+                    'x_direction_2d': None,
+                    'y_direction_2d': None,
+                    'reordered_corners': ordered_corners.reshape(-1, 2),
+                    'corner_permutation': None,
+                    'matched_indices': guided_result['matched_indices']
+                }
+                self.apriltag_success_count += 1
+                self.get_logger().info(f'[{frame_id}] ✅ 使用AprilTag引导检测结果 (ID: {apriltag_info["tag_id"]})')
+            else:
+                coord_info = None
+        else:
+            # 常规检测：建立AprilTag坐标系
+            self.get_logger().info(f'[{frame_id}] 🔧 建立AprilTag坐标系...')
             
-            if not coord_success:
-                self.get_logger().warn(f'[{frame_id}] AprilTag坐标系建立失败，使用原始检测结果')
+            try:
+                coord_success, origin_2d, x_direction, y_direction, coord_info = self.standard_system.establish_coordinate_system(
+                    undistorted, board_corners_2d, K_used, dist_used, grid_rows, grid_cols
+                )
+                
+                if not coord_success:
+                    self.get_logger().warn(f'[{frame_id}] AprilTag坐标系建立失败，使用原始检测结果')
+                    self.apriltag_failure_count += 1
+                    # 回退到原始方法
+                    ordered_corners = corners_refined
+                    coord_info = None
+                else:
+                    self.get_logger().info(f'[{frame_id}] ✅ AprilTag坐标系建立成功 (ID: {coord_info["tag_id"]})')
+                    self.apriltag_success_count += 1
+                    # 使用重新排列的角点
+                    reordered = np.asarray(coord_info['reordered_corners'], dtype=np.float32)
+                    ordered_corners = reordered.reshape(-1, 1, 2)
+                    
+            except Exception as e:
+                self.get_logger().warn(f'[{frame_id}] AprilTag处理失败: {e}，使用原始检测结果')
                 self.apriltag_failure_count += 1
-                # 回退到原始方法
                 ordered_corners = corners_refined
                 coord_info = None
-            else:
-                self.get_logger().info(f'[{frame_id}] ✅ AprilTag坐标系建立成功 (ID: {coord_info["tag_id"]})')
-                self.apriltag_success_count += 1
-                # 使用重新排列的角点
-                reordered = np.asarray(coord_info['reordered_corners'], dtype=np.float32)
-                ordered_corners = reordered.reshape(-1, 1, 2)
-                
-        except Exception as e:
-            self.get_logger().warn(f'[{frame_id}] AprilTag处理失败: {e}，使用原始检测结果')
-            self.apriltag_failure_count += 1
-            ordered_corners = corners_refined
-            coord_info = None
         
         # 4. 使用鲁棒PnP求解（基于AprilTag坐标系）
         self.get_logger().info(f'[{frame_id}] 🔧 执行鲁棒PnP求解...')
         
         try:
-            # 构建3D物体点（基于AprilTag坐标系）
-            objpoints_3d = self._build_apriltag_based_obj_points(
-                grid_rows, grid_cols, self.board_spacing, coord_info, grid_symmetric
-            )
+            # 构建3D物体点
+            if detection_source == 'apriltag_guided' and guided_result is not None:
+                # 使用引导检测器生成的3D物体点
+                if guided_result['success']:
+                    objpoints_3d = guided_result['object_points']  # (M, 3)
+                    self.get_logger().info(f'[{frame_id}] 使用引导检测的3D物体点: {len(objpoints_3d)} 个点')
+                else:
+                    self.failure_count += 1
+                    return None
+            else:
+                # 常规检测：构建3D物体点（基于AprilTag坐标系）
+                objpoints_3d = self._build_apriltag_based_obj_points(
+                    grid_rows, grid_cols, self.board_spacing, coord_info, grid_symmetric
+                )
             
             pts2d = ordered_corners.reshape(-1, 2)
             
@@ -586,52 +693,61 @@ class RobustTiltCheckerNode(Node):
         self.success_count += 1
         self.all_results.append(result)
         
-        # 9. 计算并发布变换参数（如果需要）
-        if self.publish_results and self.transform_publisher is not None:
-            try:
-                # 计算从相机坐标系到标定板坐标系的变换参数
-                delta_x, delta_y, delta_z, gamma, alpha, beta = compute_camera_to_board_transform(
-                    rvec_robust, tvec_robust
-                )
-                
-                # 构建消息：数组格式 [δx, δy, δz, γ, α, β]
+        # 9. 计算并可选发布变换参数
+        transform_array = None
+        try:
+            delta_x, delta_y, delta_z, gamma, alpha, beta = compute_camera_to_board_transform(
+                rvec_robust, tvec_robust
+            )
+            transform_array = [delta_x, delta_y, delta_z, gamma, alpha, beta]
+            
+            # 保存到结果中
+            result['camera_to_board_transform'] = {
+                'translation': {
+                    'delta_x': delta_x,
+                    'delta_y': delta_y,
+                    'delta_z': delta_z
+                },
+                'rotation_zyx': {
+                    'gamma': gamma,
+                    'alpha': alpha,
+                    'beta': beta
+                },
+                'rotation_zyx_deg': {
+                    'gamma': np.degrees(gamma),
+                    'alpha': np.degrees(alpha),
+                    'beta': np.degrees(beta)
+                }
+            }
+            result['camera_to_board_transform_array'] = transform_array
+            
+            if self.publish_results and self.transform_publisher is not None:
                 transform_msg = Float64MultiArray()
-                transform_msg.data = [delta_x, delta_y, delta_z, gamma, alpha, beta]
-                
-                # 注意：Float64MultiArray没有header字段，如果需要时间戳信息，
-                # 可以考虑使用自定义消息类型或使用data数组的前几个元素存储元数据
-                
-                # 发布消息
+                transform_msg.data = transform_array
                 self.transform_publisher.publish(transform_msg)
-                
                 self.get_logger().info(
                     f'[{frame_id}] 📤 已发布变换参数: '
                     f'平移=[{delta_x:.4f}, {delta_y:.4f}, {delta_z:.4f}]m, '
                     f'旋转=[{gamma:.4f}, {alpha:.4f}, {beta:.4f}]rad '
                     f'(ZYX欧拉角: γ={np.degrees(gamma):.2f}°, α={np.degrees(alpha):.2f}°, β={np.degrees(beta):.2f}°)'
                 )
-                
-                # 将变换参数添加到结果中
-                result['camera_to_board_transform'] = {
-                    'translation': {
-                        'delta_x': delta_x,
-                        'delta_y': delta_y,
-                        'delta_z': delta_z
-                    },
-                    'rotation_zyx': {
-                        'gamma': gamma,  # 绕Z轴旋转（弧度）
-                        'alpha': alpha,  # 绕Y轴旋转（弧度）
-                        'beta': beta     # 绕X轴旋转（弧度）
-                    },
-                    'rotation_zyx_deg': {
-                        'gamma': np.degrees(gamma),
-                        'alpha': np.degrees(alpha),
-                        'beta': np.degrees(beta)
-                    }
-                }
-                
-            except Exception as e:
-                self.get_logger().error(f'[{frame_id}] 发布变换参数失败: {e}')
+        except Exception as e:
+            self.get_logger().error(f'[{frame_id}] 计算或发布变换参数失败: {e}')
+        
+        if transform_array is not None:
+            self.transform_records.append({
+                'frame_id': frame_id,
+                'timestamp': timestamp,
+                'array': transform_array
+            })
+            # 额外记录PnP原始解（物体->相机）和变换数组（相机->标定板）
+            self.pnp_array_records.append({
+                'frame_id': frame_id,
+                'timestamp': timestamp,
+                'camera_to_board': transform_array,  # [δx, δy, δz, γ, α, β] (m, rad)
+                'tvec_board_to_cam': tvec_robust.flatten().tolist(),  # 物体->相机，单位: m
+                'rvec_board_to_cam': rvec_robust.flatten().tolist()   # 物体->相机，单位: rad (轴角)
+            })
         
         # 10. 保存图像（如果需要）
         if self.save_images:
@@ -1127,9 +1243,68 @@ class RobustTiltCheckerNode(Node):
         except Exception as e:
             self.get_logger().error(f'处理 rosbag 失败: {e}')
     
+    def export_transform_arrays(self):
+        """在终端输出所有变换数组并写入 Result array.txt"""
+        if not self.transform_records:
+            self.get_logger().warn('暂无可导出的相机-标定板变换数组')
+            return
+        
+        os.makedirs(self.output_dir, exist_ok=True)
+        lines = []
+        self.get_logger().info('===== Result array (δx, δy, δz, γ, α, β) =====')
+        for record in self.transform_records:
+            arr = record['array']
+            line = (
+                f"{record['frame_id']}: "
+                f"[{arr[0]:.6f}, {arr[1]:.6f}, {arr[2]:.6f}, "
+                f"{arr[3]:.6f}, {arr[4]:.6f}, {arr[5]:.6f}]"
+            )
+            self.get_logger().info(line)
+            lines.append(line)
+        
+        out_path = os.path.join(self.output_dir, 'Result array.txt')
+        with open(out_path, 'w', encoding='utf-8') as f:
+            f.write('\n'.join(lines))
+        self.get_logger().info(f'✅ 已写出 Result array.txt (共 {len(lines)} 行)')
+    
+    def export_pnp_arrays(self):
+        """输出PnP求解得到的数组到 pnpResult_array.txt"""
+        if not self.pnp_array_records:
+            self.get_logger().warn('暂无可导出的PnP结果数组')
+            return
+        
+        os.makedirs(self.output_dir, exist_ok=True)
+        lines = []
+        self.get_logger().info('===== PnP Result array (camera->board: [δx, δy, δz, γ, α, β], board->camera: tvec/rvec) =====')
+        for record in self.pnp_array_records:
+            cam2board = record['camera_to_board']
+            tvec = record['tvec_board_to_cam']
+            rvec = record['rvec_board_to_cam']
+            line = (
+                f"{record['frame_id']}: "
+                f"cam->board [δx,δy,δz,γ,α,β]=[{cam2board[0]:.6f}, {cam2board[1]:.6f}, {cam2board[2]:.6f}, "
+                f"{cam2board[3]:.6f}, {cam2board[4]:.6f}, {cam2board[5]:.6f}]  ; "
+                f"board->cam tvec=[{tvec[0]:.6f}, {tvec[1]:.6f}, {tvec[2]:.6f}]  rvec=[{rvec[0]:.6f}, {rvec[1]:.6f}, {rvec[2]:.6f}]"
+            )
+            self.get_logger().info(line)
+            lines.append(line)
+        
+        out_path = os.path.join(self.output_dir, 'pnpResult_array.txt')
+        with open(out_path, 'w', encoding='utf-8') as f:
+            f.write('\n'.join(lines))
+        self.get_logger().info(f'✅ 已写出 pnpResult_array.txt (共 {len(lines)} 行)')
+    
     def save_results_to_files(self):
         """保存所有结果到文件"""
-        if not self.save_results or not self.all_results:
+        if not self.all_results:
+            return
+        
+        # 无论是否保存详细文件，都导出变换数组
+        self.export_transform_arrays()
+        # 追加导出PnP数组
+        self.export_pnp_arrays()
+        
+        if not self.save_results:
             return
         
         self.get_logger().info('💾 保存结果到文件...')
@@ -1398,3 +1573,12 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+    # detector = AprilTagGuidedGridDetector()
+    # result = detector.detect(image)
+    # diagnose_matching(result, detector)
+    
+    
+    # vis_details = visualize_unmatched_details(image, result, detector)
+    # cv2.imshow('Unmatched Details', vis_details)
+    # cv2.waitKey(0)
+    
